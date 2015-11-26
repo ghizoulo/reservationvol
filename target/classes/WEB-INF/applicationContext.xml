@@ -17,7 +17,12 @@
 <context:component-scan base-package="reservation.metier"/>
 <context:component-scan base-package="reservation.presentation"/>
 	
-	
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+	<property name="prefix" value="/WEB-INF/vues/"></property>
+	<property name="suffix" value=".jsp"></property>
+</bean>  
+    
 	<!-- DataSource -->
 <bean id="ds"  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
