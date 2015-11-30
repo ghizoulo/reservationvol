@@ -1,6 +1,6 @@
 package testMetier;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class TestPassager {
 				//recuperer la liste des passagers
 			//List<Passager> before_insert = passagerMetier.list();
 				//ajouter une nouvelle passager
-//			passagerMetier.add(new Passager(5000, TypePassager.PassagerAccident, false));
+			passagerMetier.add(new Passager("Ghiz","lotfi", false));
 //			passagerMetier.add(new Passager(5000, TypePassager.PassagerAccident, false));
 				//modifier une passager
 			//passagerMetier.update(new Passager(2,5800,TypePassager.PassagerMalade, false));
@@ -41,7 +41,7 @@ public class TestPassager {
 				//verifie si l'passager recherché est bien trouvé
 			assertTrue("get Passager by id", passager != null);
 				//vérifie si la liste d'passager récupérée au début + 1 est = à la nouvelle liste
-			assertTrue(after_insert.size()==2);
+			assertTrue(after_insert.size()==1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -25,6 +25,7 @@ public class TestAssurance {
 	@Test 
 	public void test_metier(){
 		AssuranceManager assuranceMetier = (AssuranceManager) ctx.getBean("assuranceServiceImpl");
+		
 		try {
 				//recuperer la liste des assurances
 			List<Assurance> before_insert = assuranceMetier.list();
