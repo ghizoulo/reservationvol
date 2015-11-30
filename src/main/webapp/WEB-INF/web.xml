@@ -4,6 +4,21 @@
 		xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>ReservationVol</display-name>
    	
+   	<servlet>
+    	<servlet-name>action</servlet-name>
+    	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    	<init-param>
+    		<param-name>contextConfigLocation</param-name>
+    		<param-value>/WEB-INF/applicationContext.xml</param-value>
+    	</init-param>
+    	<load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name>action</servlet-name>
+    	<url-pattern>*.htm</url-pattern>
+    </servlet-mapping>
+    
    	<listener> 
         <listener-class> org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -12,16 +27,6 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
     </context-param>
-        
-    <servlet>
-    	<servlet-name>action</servlet-name>
-    	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    </servlet>
-    
-    <servlet-mapping>
-    	<servlet-name>action</servlet-name>
-    	<url-pattern>*.jsp</url-pattern>
-    </servlet-mapping>
     
     <welcome-file-list>
         <welcome-file>
