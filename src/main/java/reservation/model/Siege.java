@@ -10,8 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,45 +21,40 @@ public class Siege {
 	private PositionSiege position;
 	private RangSiege rang;
 	private boolean deleted = false;
-	private Classe classe;
 	private Set<Reservation> reservations = new HashSet<Reservation>();
 	
 	public Siege() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Siege(int id, boolean cote_fenetre, PositionSiege position, RangSiege rang, boolean deleted, Classe classe) {
+	public Siege(int id, boolean cote_fenetre, PositionSiege position, RangSiege rang, boolean deleted) {
 		super();
 		this.id = id;
 		this.cote_fenetre = cote_fenetre;
 		this.position = position;
 		this.rang = rang;
 		this.deleted = deleted;
-		this.classe = classe;
 	}
-	public Siege(boolean cote_fenetre, PositionSiege position, RangSiege rang, boolean deleted, Classe classe) {
+	public Siege(boolean cote_fenetre, PositionSiege position, RangSiege rang, boolean deleted) {
 		super();
 		this.cote_fenetre = cote_fenetre;
 		this.position = position;
 		this.rang = rang;
 		this.deleted = deleted;
-		this.classe = classe;
 	}
-	public Siege(boolean cote_fenetre, PositionSiege position, RangSiege rang, Classe classe) {
+	public Siege(boolean cote_fenetre, PositionSiege position, RangSiege rang) {
 		super();
 		this.cote_fenetre = cote_fenetre;
 		this.position = position;
 		this.rang = rang;
-		this.classe = classe;
 	}
-	public Siege(boolean cote_fenetre, PositionSiege position, RangSiege rang, boolean deleted, Classe classe,
+	public Siege(boolean cote_fenetre, PositionSiege position, RangSiege rang, boolean deleted,
 			Set<Reservation> reservations) {
 		super();
 		this.cote_fenetre = cote_fenetre;
 		this.position = position;
 		this.rang = rang;
 		this.deleted = deleted;
-		this.classe = classe;
 		this.reservations = reservations;
 	}
 	@Id
@@ -104,15 +97,6 @@ public class Siege {
 	}
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name = "CLASSE_ID", nullable = false)
-	public Classe getClasse() {
-		return classe;
-	}
-	public void setClasse(Classe classe) {
-		this.classe = classe;
 	}
 	
 	@OneToMany(mappedBy = "siege")

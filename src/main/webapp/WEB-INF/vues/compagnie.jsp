@@ -23,7 +23,7 @@
 
                 <div class="box-header">
                 	
-                  <h3 class="box-title">Liste des assurances</h3>
+                  <h3 class="box-title">Liste des Compagnies</h3>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">ADD</button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -31,18 +31,15 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="exampleModalLabel">Ajouter une assurance</h4>
+        <h4 class="modal-title" id="exampleModalLabel">Ajouter une Compagnie</h4>
       </div>
       <div class="modal-body">
-        <form method="POST" action="assurance/add.htm">
+        <form method="POST" action="compagnie/add.htm">
           <div class="form-group">
-            <label for="recipient-name" class="control-label">Type Assurance:</label>
-            <input type="text" class="form-control" name="type">
+            <label for="recipient-name" class="control-label">Nom Compagnie:</label>
+            <input type="text" class="form-control" name="nom">
           </div>
-          <div class="form-group">
-            <label for="message-text" class="control-label">Tarif:</label>
-            <input type="text" class="form-control" name="tarif">
-          </div>
+         
        <input type="submit" class="btn btn-primary" value="Enregistrer">
 
         </form>
@@ -57,36 +54,30 @@
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th>Type Assurance</th>
-                        <th>Tarif</th>
+                        <th>Nom Compagnie</th>
                         <th>Option</th>
                       
                       </tr>
                     </thead>
                     <tbody>
-                    <v:forEach items="${listeAssurance}" var="o">
+                    <v:forEach items="${listeCompagnie}" var="o">
 		                 <tr>  
-			             <td>${o.type}</td>
-			             <td>${o.tarif}</td>
-			             <td><a href="assurance/delete.htm?id=${o.id}">supprimer</a> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${o.id}" data-whatever="@getbootstrap">Modifier</button>
-			             	<div class="modal fade" id="${o.id}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+			             <td>${o.nom}</td>
+			             <td><a href="compagnie/delete.htm?id=${o.id}">supprimer</a> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Modifier</button>
+			             	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
                              <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="exampleModalLabel">Modifier une assurance</h4>
+                                <h4 class="modal-title" id="exampleModalLabel">Modifier une Compagnie</h4>
                                </div>
                               <div class="modal-body">
-                              <form method="POST" action="assurance/update.htm">
+                              <form method="POST" action="compagnie/update.htm">
                                 <div class="form-group">
-                                  <label for="recipient-name" class="control-label">Type Assurance:</label>
-                                  <input type="text" class="form-control" id="exampleInputEmail1" name="type" value="${o.type}">
+                                  <label for="recipient-name" class="control-label">Nom Compagnie:</label>
+                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
                                    <!--<input type="text" class="form-control" name="type" placeholder="hhhhh">-->
                                 </div>
-                                      <div class="form-group">
-                                       <label for="message-text" class="control-label">Tarif:</label>
-                                        <input type="text" class="form-control" name="tarif" value="${o.tarif}">
-                                      </div>
                                       <input type="submit" class="btn btn-primary" value="Enregistrer">
 
                               </form>

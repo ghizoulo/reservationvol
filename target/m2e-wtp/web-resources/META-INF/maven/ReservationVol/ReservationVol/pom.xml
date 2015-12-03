@@ -118,8 +118,16 @@
 		    <artifactId>log4j-core</artifactId>
 		    <version>2.4.1</version>
 		  </dependency>
+		  <!-- dependency of jsp template -->
+		  <dependency>
+    <groupId>kr.pe.kwonnam.jsp</groupId>
+    <artifactId>jsp-template-inheritance</artifactId>
+    <version>0.3.RELEASE</version>
+    <scope>compile</scope>
+</dependency>
   
 	</dependencies>
+	
 	
   <build>
     <testSourceDirectory>src/main/test</testSourceDirectory>

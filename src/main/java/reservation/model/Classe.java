@@ -9,10 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +21,6 @@ public class Classe {
 	private String nom;
 	private int prix;
 	private boolean deleted = false;
-	private Set<Siege> sieges = new HashSet<Siege>();
 	private Set<Vol> vols = new HashSet<Vol>();
 	
 	public Classe() {
@@ -43,12 +41,11 @@ public class Classe {
 		this.deleted = deleted;
 	}
 	
-	public Classe(String nom, int prix, boolean deleted, Set<Siege> sieges, Set<Vol> vols) {
+	public Classe(String nom, int prix, boolean deleted, Set<Vol> vols) {
 		super();
 		this.nom = nom;
 		this.prix = prix;
 		this.deleted = deleted;
-		this.sieges = sieges;
 		this.vols = vols;
 	}
 	@Id
@@ -83,14 +80,6 @@ public class Classe {
 	}
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
-	}
-	
-	@OneToMany(mappedBy = "classe")
-	public Set<Siege> getSieges() {
-		return sieges;
-	}
-	public void setSieges(Set<Siege> sieges) {
-		this.sieges = sieges;
 	}
 	
 	@ManyToMany(cascade = CascadeType.ALL)
