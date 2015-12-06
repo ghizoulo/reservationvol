@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import reservation.metier.CompagnieManager;
 import reservation.model.Compagnie;
 
@@ -30,8 +29,8 @@ protected final Log logger = LogFactory.getLog(getClass());
 	    try {
 	    	//Assurance a = new Assurance();
 	    	//System.out.println(a.isDeleted());
-	    	Compagnie comp= new Compagnie(); 
-	    	 comp=service.getCompagnieById(1);
+//	    	Compagnie comp = new Compagnie(); 
+//	    	 comp = service.getCompagnieById(1);
 	    	ArrayList<Compagnie> listes = new ArrayList<>();
 			  for(Compagnie compagnie:service.list()){
 				  if(!compagnie.isDeleted()){

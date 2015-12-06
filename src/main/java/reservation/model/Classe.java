@@ -49,6 +49,10 @@ public class Classe {
 		this.vols = vols;
 	}
 	
+	public void addVol(Vol vol) {
+        this.vols.add(vol);
+    }
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)

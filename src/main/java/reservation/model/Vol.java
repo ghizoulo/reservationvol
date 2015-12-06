@@ -1,6 +1,5 @@
 package reservation.model;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,8 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "VOLS")
@@ -100,6 +97,10 @@ public class Vol {
 		this.classes = classes;
 	}
 
+	public void addClasse(Classe classe) {
+        this.classes.add(classe);
+    }
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)
