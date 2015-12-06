@@ -48,6 +48,7 @@ public class Classe {
 		this.deleted = deleted;
 		this.vols = vols;
 	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)

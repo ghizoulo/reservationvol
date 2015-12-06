@@ -389,6 +389,8 @@
                 <li><a href="compagnie.htm"><i class="fa fa-circle-o"></i> Compagnie</a></li>
                 <li><a href="assurance.htm"><i class="fa fa-circle-o"></i> Assurance</a></li>
                 <li><a href="vol.htm"><i class="fa fa-circle-o"></i> Vol</a></li>
+                <li><a href="aeroport.htm"><i class="fa fa-circle-o"></i> Aeroport</a></li>
+
               </ul>
             </li>
             <li>
@@ -502,6 +504,6 @@
 		<script src="/ReservationVol/assets/dist/js/pages/dashboard.js"></script>
 		<!-- AdminLTE for demo purposes -->
 		<script src="/ReservationVol/assets/dist/js/demo.js"></script>
-    
+
 		</body>
 </html>

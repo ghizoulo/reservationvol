@@ -72,4 +72,5 @@
         <property name="prefix" value="/WEB-INF/vues/"></property>
         <property name="suffix" value=".jsp"></property>
     </bean>
+    
 </beans>

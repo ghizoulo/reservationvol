@@ -30,7 +30,8 @@ protected final Log logger = LogFactory.getLog(getClass());
 	    try {
 	    	//Assurance a = new Assurance();
 	    	//System.out.println(a.isDeleted());
-	    	
+	    	Compagnie comp= new Compagnie(); 
+	    	 comp=service.getCompagnieById(1);
 	    	ArrayList<Compagnie> listes = new ArrayList<>();
 			  for(Compagnie compagnie:service.list()){
 				  if(!compagnie.isDeleted()){

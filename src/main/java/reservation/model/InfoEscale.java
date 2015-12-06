@@ -15,8 +15,8 @@ import javax.persistence.Table;
 @Table(name = "INFOESCALES")
 public class InfoEscale {
 	private int id;
-	private Time heureArrivee;
-	private Time heureDepart;
+	private String heureArrivee;
+	private String heureDepart;
 	private Vol vol;
 	private Aeroport aeroport;
 	
@@ -24,19 +24,19 @@ public class InfoEscale {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public InfoEscale(Time heureArrivee, Time heureDepart) {
+	public InfoEscale(String heureArrivee, String heureDepart) {
 		super();
 		this.heureArrivee = heureArrivee;
 		this.heureDepart = heureDepart;
 	}
-	public InfoEscale(int id, Time heureArrivee, Time heureDepart) {
+	public InfoEscale(int id, String heureArrivee, String heureDepart) {
 		super();
 		this.id = id;
 		this.heureArrivee = heureArrivee;
 		this.heureDepart = heureDepart;
 	}
 	
-	public InfoEscale(Time heureArrivee, Time heureDepart, Vol vol) {
+	public InfoEscale(String heureArrivee, String heureDepart, Vol vol) {
 		super();
 		this.heureArrivee = heureArrivee;
 		this.heureDepart = heureDepart;
@@ -44,13 +44,13 @@ public class InfoEscale {
 	}
 	
 	
-	public InfoEscale(Time heureArrivee, Time heureDepart, Aeroport aeroport) {
+	public InfoEscale(String heureArrivee, String heureDepart, Aeroport aeroport) {
 		super();
 		this.heureArrivee = heureArrivee;
 		this.heureDepart = heureDepart;
 		this.aeroport = aeroport;
 	}
-	public InfoEscale(Time heureArrivee, Time heureDepart, Vol vol, Aeroport aeroport) {
+	public InfoEscale(String heureArrivee, String heureDepart, Vol vol, Aeroport aeroport) {
 		super();
 		this.heureArrivee = heureArrivee;
 		this.heureDepart = heureDepart;
@@ -68,18 +68,18 @@ public class InfoEscale {
 	}
 	
 	@Column(name = "HEURE_ARRIVEE", nullable = false)
-	public Time getHeureArrivee() {
+	public String getHeureArrivee() {
 		return heureArrivee;
 	}
-	public void setHeureArrivee(Time heureArrivee) {
+	public void setHeureArrivee(String heureArrivee) {
 		this.heureArrivee = heureArrivee;
 	}
 	
 	@Column(name = "HEURE_DEPART", nullable = false)
-	public Time getHeureDepart() {
+	public String getHeureDepart() {
 		return heureDepart;
 	}
-	public void setHeureDepart(Time heureDepart) {
+	public void setHeureDepart(String heureDepart) {
 		this.heureDepart = heureDepart;
 	}
 	

@@ -16,14 +16,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "VOLS")
 public class Vol {
 	private int id;
+	//@DateTimeFormat(pattern = "yyyy/MM/dd")
+	//@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date dateDepart;
 	private	Date dateArrivee;
-	private Time heureDepart;
-	private Time heureArrivee;
+	//@DateTimeFormat(pattern = "hh:mm")
+
+	//@DateTimeFormat(pattern = "hh:mm:ss")
+	private String heureDepart;
+	private String heureArrivee;
 	private boolean deleted = false;
 	private boolean open = true;
 	private Aeroport aeroportDepart;
@@ -38,7 +45,7 @@ public class Vol {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Vol(Date dateDepart, Date dateArrivee, Time heureDepart, Time heureArrivee, boolean deleted,
+	public Vol(Date dateDepart, Date dateArrivee, String heureDepart, String heureArrivee, boolean deleted,
 			boolean open) {
 		super();
 		this.dateDepart = dateDepart;
@@ -49,7 +56,7 @@ public class Vol {
 		this.open = open;
 	}
 
-	public Vol(int id, Date dateDepart, Date dateArrivee, Time heureDepart, Time heureArrivee, boolean deleted,
+	public Vol(int id, Date dateDepart, Date dateArrivee, String heureDepart, String heureArrivee, boolean deleted,
 			boolean open) {
 		super();
 		this.id = id;
@@ -61,7 +68,7 @@ public class Vol {
 		this.open = open;
 	}
 
-	public Vol(Date dateDepart, Date dateArrivee, Time heureDepart, Time heureArrivee, boolean deleted, boolean open,
+	public Vol(Date dateDepart, Date dateArrivee, String heureDepart, String heureArrivee, boolean deleted, boolean open,
 			Aeroport aeroportDepart, Aeroport aeroportArrivee, Compagnie compagnie) {
 		super();
 		this.dateDepart = dateDepart;
@@ -75,7 +82,7 @@ public class Vol {
 		this.compagnie = compagnie;
 	}
 
-	public Vol(Date dateDepart, Date dateArrivee, Time heureDepart, Time heureArrivee, boolean deleted, boolean open,
+	public Vol(Date dateDepart, Date dateArrivee, String heureDepart, String heureArrivee, boolean deleted, boolean open,
 			Aeroport aeroportDepart, Aeroport aeroportArrivee, Compagnie compagnie, Set<Reservation> reservations,
 			Set<InfoEscale> infoEscales, Set<Classe> classes) {
 		super();
@@ -123,20 +130,20 @@ public class Vol {
 	}
 
 	@Column(name = "HEURE_DEPART", nullable = false)
-	public Time getHeureDepart() {
+	public String getHeureDepart() {
 		return heureDepart;
 	}
 
-	public void setHeureDepart(Time heureDepart) {
+	public void setHeureDepart(String heureDepart) {
 		this.heureDepart = heureDepart;
 	}
 
 	@Column(name = "HEURE_ARRIVEE", nullable = false)
-	public Time getHeureArrivee() {
+	public String getHeureArrivee() {
 		return heureArrivee;
 	}
 
-	public void setHeureArrivee(Time heureArrivee) {
+	public void setHeureArrivee(String heureArrivee) {
 		this.heureArrivee = heureArrivee;
 	}
 

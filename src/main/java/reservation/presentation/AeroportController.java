@@ -12,36 +12,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import reservation.metier.AeroportManager;
 import reservation.metier.AssuranceManager;
+import reservation.model.Aeroport;
 import reservation.model.Assurance;
 import reservation.model.TypeAssurance;
 
 
 @Controller
-@RequestMapping(value="/assurance")
-public class AssuranceController {
+@RequestMapping(value="/aeroport")
+public class AeroportController {
 	
 	protected final Log logger = LogFactory.getLog(getClass());
 	
 	@Autowired
-	AssuranceManager service;
+	AeroportManager serviceAeroport;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView listAssurance(Model model) {
+	public ModelAndView listAeroport(Model model) {
 	    try {
-	    	//Assurance a = new Assurance();
-	    	//System.out.println(a.isDeleted());
-	    	
-	    	ArrayList<Assurance> listes = new ArrayList<>();
-			  for(Assurance assurance:service.list()){
-				 if(!assurance.isDeleted()){
-					  listes.add(assurance);
-					  System.out.println("Supprimer");
+	    	ArrayList<Aeroport> listes = new ArrayList<>();
+			  for(Aeroport aeroport:serviceAeroport.list()){
+				 if(!aeroport.isDeleted()){
+					  listes.add(aeroport);
 				 }
 			  }
 			    
-			  model.addAttribute("listeAssurance",listes);
-			  return new ModelAndView("assurance");
+			  model.addAttribute("listeAeroport",listes);
+			  return new ModelAndView("aeroport");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -51,21 +49,20 @@ public class AssuranceController {
 	}
 	
 	@RequestMapping(path="add", method = RequestMethod.POST)
-	public ModelAndView addAssurance(Model model,@RequestParam TypeAssurance type,
-									@RequestParam int tarif ) {
+	public ModelAndView addAeroport(Model model,@RequestParam String nom,
+									@RequestParam String ville ) {
 	    try {
-		    Assurance a= new Assurance(tarif, type, false);
-		    service.add(a);
-		    System.out.println("ana f ajouté");
-		    ArrayList<Assurance> listes = new ArrayList<>();
-			  for(Assurance assurance:service.list()){
-				 if(!assurance.isDeleted()){
-					  listes.add(assurance);  
+		    Aeroport a= new Aeroport(nom, ville, false);
+		    serviceAeroport.add(a);
+		   ArrayList<Aeroport> listes = new ArrayList<>();
+			  for(Aeroport aeroport:serviceAeroport.list()){
+				 if(!aeroport.isDeleted()){
+					  listes.add(aeroport);  
 				 }
 			  }
 			    
-			  model.addAttribute("listeAssurance",listes);
-			  return new ModelAndView("assurance");
+			  model.addAttribute("listeAeroport",listes);
+			  return new ModelAndView("aeroport");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,22 +72,22 @@ public class AssuranceController {
 	}
 	
 	@RequestMapping(path="update", method = RequestMethod.POST)
-	public ModelAndView updateAssurance(Model model,@RequestParam int id,@RequestParam TypeAssurance type,
-									@RequestParam int tarif ) {
+	public ModelAndView updateAeroport(Model model,@RequestParam String nom,
+									@RequestParam String ville ) {
 	    try {
 	    	System.out.println("avant modification");
-		    Assurance a= new Assurance(id,tarif, type, false);
-		    service.update(a);
+		    Aeroport a= new Aeroport(1,nom, ville, false);
+		    serviceAeroport.update(a);
 		    System.out.println("bien modifier");
-		    ArrayList<Assurance> listes = new ArrayList<>();
-			  for(Assurance assurance:service.list()){
-				 if(!assurance.isDeleted()){
-					  listes.add(assurance);  
+		    ArrayList<Aeroport> listes = new ArrayList<>();
+			  for(Aeroport aeroport:serviceAeroport.list()){
+				 if(!aeroport.isDeleted()){
+					  listes.add(aeroport);  
 				 }
 			  }
 			    
-			  model.addAttribute("listeAssurance",listes);
-			  return new ModelAndView("assurance");
+			  model.addAttribute("listeAeroport",listes);
+			  return new ModelAndView("aeroport");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,20 +99,20 @@ public class AssuranceController {
 	@RequestMapping(path="delete", method = RequestMethod.GET)
 	public ModelAndView deleteAssurance(Model model,@RequestParam int id) {
 	    try {
-	    	service.delete(id);
+	    	serviceAeroport.delete(id);
 		   // Assurance a=service.getAssuranceById(id);
 		    //boolean b =a.isDeleted();
 		  // System.out.println(b);
-	    	ArrayList<Assurance> listes = new ArrayList<>();
-		  for(Assurance assurance:service.list()){
-			  if(!assurance.isDeleted()){
-				  listes.add(assurance);
+	    	ArrayList<Aeroport> listes = new ArrayList<>();
+		  for(Aeroport aeroport:serviceAeroport.list()){
+			  if(!aeroport.isDeleted()){
+				  listes.add(aeroport);
 				  System.out.println("Supprimer");
 			  }
 		  }
 		    
-		    model.addAttribute("listeAssurance",listes);
-		    return new ModelAndView("assurance");
+		    model.addAttribute("listeAeroport",listes);
+		    return new ModelAndView("aeroport");
 		    
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
