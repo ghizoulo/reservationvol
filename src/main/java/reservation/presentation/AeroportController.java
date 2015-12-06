@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import reservation.metier.AeroportManager;
-import reservation.metier.AssuranceManager;
 import reservation.model.Aeroport;
-import reservation.model.Assurance;
-import reservation.model.TypeAssurance;
 
 
 @Controller

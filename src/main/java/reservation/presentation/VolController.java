@@ -1,18 +1,12 @@
 package reservation.presentation;
 
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,14 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import antlr.collections.List;
 import reservation.metier.AeroportManager;
 import reservation.metier.ClasseManager;
 import reservation.metier.CompagnieManager;
 import reservation.metier.InfoEscaleManager;
 import reservation.metier.VolManager;
 import reservation.model.Aeroport;
-import reservation.model.Classe;
 import reservation.model.Compagnie;
 import reservation.model.InfoEscale;
 import reservation.model.Vol;
