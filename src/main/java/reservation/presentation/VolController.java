@@ -47,11 +47,11 @@ public class VolController {
 			@RequestParam String heureDepart, @RequestParam String heureArrivee, @RequestParam int aeroportDepartid,
 			@RequestParam int aeroportArriveeid, @RequestParam int compagnieid, @RequestParam boolean open,
 			@RequestParam String heureArriveeEscale, @RequestParam String heureDepartEscale,
-			@RequestParam int aeroportEscale, @RequestParam String Économique, @RequestParam String Premium,
-			@RequestParam String Affaires, @RequestParam String Première, @RequestParam int prixclasse1,
-			@RequestParam int prixclasse2, @RequestParam int prixclasse3, @RequestParam int prixclasse4)
-					throws Exception {
-
+			@RequestParam int aeroportEscale, @RequestParam String economique, @RequestParam String premium,
+			@RequestParam String affaires, @RequestParam String premiere, @RequestParam int prixclasse1,
+			@RequestParam int prixclasse2, @RequestParam int prixclasse3, @RequestParam int prixclasse4)throws Exception {
+			
+          System.out.println(economique);
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date datedepart = formatter.parse(dateDepart);
 		Date datearrivee = formatter.parse(dateArrivee);
@@ -70,13 +70,25 @@ public class VolController {
 			Vol a = new Vol(datedepart, datearrivee, heureDepart, heureArrivee, false, open, aeroportdepart,
 					aeroportarrivee, compagnie);
 			InfoEscale E = new InfoEscale(heureArriveeEscale, heureDepartEscale, a, aeroportescale);
-			Classe c = new Classe("Économique", prixclasse1, false);
+			Classe classeEconomique = new Classe(economique, prixclasse1, false);
+			Classe classePerimium = new Classe(premium, prixclasse2, false);
+			Classe classeAffaires = new Classe(affaires, prixclasse3, false);
+			Classe classePremiere = new Classe(premiere, prixclasse4, false);
 			// ajouter la classe à Set de vol
-			a.addClasse(c);
+			a.addClasse(classeEconomique);
+			a.addClasse(classePerimium);
+			a.addClasse(classeAffaires);
+			a.addClasse(classePremiere);
 			//ajouter le vol à Set de la classe
-			c.addVol(a);
+			classeEconomique.addVol(a);
+			classePerimium.addVol(a);
+			classeAffaires.addVol(a);
+			classePremiere.addVol(a);
 			//commit the creation
-			serviceClasse.add(c);
+			serviceClasse.add(classeEconomique);
+			serviceClasse.add(classePerimium);
+			serviceClasse.add(classeAffaires);
+			serviceClasse.add(classePremiere);
 			serviceVol.add(a);
 			serviceEscale.add(E);
 			// serviceClasse.add(C);

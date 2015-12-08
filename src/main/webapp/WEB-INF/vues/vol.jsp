@@ -127,43 +127,39 @@
 													</div>
 													<!-- /.box-header -->
 													<div class="box-body">
-														<div class="box-body">
+														
 															<div class="form-group">
 																<label> <input type="checkbox" class="flat-red"
-																	name="Économique" value="Économique" checked>Économique
+																	name="economique" value="economique" tabindex="1" checked>Économique
 																</label> </br> <label for="prixclasse1" class="control-label">Prix:</label>
 																<input type="text" class="form-control"
 																	name="prixclasse1">
 															</div>
-														</div>
-														<div class="box-body">
+														
+														
 															<div class="form-group">
 																<label> <input type="checkbox" class="flat-red"
-																	name="Premium economy" value="Premium economy">Premium
-																	economy
-																</label></br> <label for="prixclasse2" class="control-label">Prix:</label>
+																	name="premium" value="Premium" tabindex="2">Premium
+																	economy</label></br> <label for="prixclasse2" class="control-label">Prix:</label>
 																<input type="text" class="form-control"
 																	name="prixclasse2">
 															</div>
-														</div>
-														<div class="box-body">
+														
+														
 															<div class="form-group">
 																<label> <input type="checkbox" class="flat-red"
-																	name="Affaires" value="Affaires">Affaires
+																	name="affaires" value="Affaires" tabindex="3">Affaires
 																</label></br> <label for="prixclasse3" class="control-label">Prix:</label>
-																<input type="text" class="form-control"
-																	name="prixclasse3">
+																<input type="text" class="form-control" name="prixclasse3">
 															</div>
-														</div>
-														<div class="box-body">
 															<div class="form-group">
 																<label> <input type="checkbox" class="flat-red"
-																	name="Première" value="Première">Première
+																	name="premiere" value="Première" tabindex="4">Première
 																</label></br> <label for="prixclasse4" class="control-label">Prix:</label>
 																<input type="text" class="form-control"
 																	name="prixclasse4">
 															</div>
-														</div>
+														
 
 													</div>
 													<!-- /.box-body -->
