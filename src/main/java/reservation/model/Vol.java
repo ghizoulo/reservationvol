@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,15 +18,10 @@ import javax.persistence.Table;
 @Table(name = "VOLS")
 public class Vol {
 	private int id;
-	//@DateTimeFormat(pattern = "yyyy/MM/dd")
-	//@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date dateDepart;
 	private	Date dateArrivee;
-	//@DateTimeFormat(pattern = "hh:mm")
-
-	//@DateTimeFormat(pattern = "hh:mm:ss")
-	private String heureDepart;
-	private String heureArrivee;
+	private Date heureDepart;
+	private Date heureArrivee;
 	private boolean deleted = false;
 	private boolean open = true;
 	private Aeroport aeroportDepart;
@@ -42,7 +36,7 @@ public class Vol {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Vol(Date dateDepart, Date dateArrivee, String heureDepart, String heureArrivee, boolean deleted,
+	public Vol(Date dateDepart, Date dateArrivee, Date heureDepart, Date heureArrivee, boolean deleted,
 			boolean open) {
 		super();
 		this.dateDepart = dateDepart;
@@ -53,7 +47,7 @@ public class Vol {
 		this.open = open;
 	}
 
-	public Vol(int id, Date dateDepart, Date dateArrivee, String heureDepart, String heureArrivee, boolean deleted,
+	public Vol(int id, Date dateDepart, Date dateArrivee, Date heureDepart, Date heureArrivee, boolean deleted,
 			boolean open) {
 		super();
 		this.id = id;
@@ -65,7 +59,7 @@ public class Vol {
 		this.open = open;
 	}
 
-	public Vol(Date dateDepart, Date dateArrivee, String heureDepart, String heureArrivee, boolean deleted, boolean open,
+	public Vol(Date dateDepart, Date dateArrivee, Date heureDepart, Date heureArrivee, boolean deleted, boolean open,
 			Aeroport aeroportDepart, Aeroport aeroportArrivee, Compagnie compagnie) {
 		super();
 		this.dateDepart = dateDepart;
@@ -79,7 +73,7 @@ public class Vol {
 		this.compagnie = compagnie;
 	}
 
-	public Vol(Date dateDepart, Date dateArrivee, String heureDepart, String heureArrivee, boolean deleted, boolean open,
+	public Vol(Date dateDepart, Date dateArrivee, Date heureDepart, Date heureArrivee, boolean deleted, boolean open,
 			Aeroport aeroportDepart, Aeroport aeroportArrivee, Compagnie compagnie, Set<Reservation> reservations,
 			Set<InfoEscale> infoEscales, Set<Classe> classes) {
 		super();
@@ -131,20 +125,20 @@ public class Vol {
 	}
 
 	@Column(name = "HEURE_DEPART", nullable = false)
-	public String getHeureDepart() {
+	public Date getHeureDepart() {
 		return heureDepart;
 	}
 
-	public void setHeureDepart(String heureDepart) {
+	public void setHeureDepart(Date heureDepart) {
 		this.heureDepart = heureDepart;
 	}
 
 	@Column(name = "HEURE_ARRIVEE", nullable = false)
-	public String getHeureArrivee() {
+	public Date getHeureArrivee() {
 		return heureArrivee;
 	}
 
-	public void setHeureArrivee(String heureArrivee) {
+	public void setHeureArrivee(Date heureArrivee) {
 		this.heureArrivee = heureArrivee;
 	}
 
@@ -214,7 +208,7 @@ public class Vol {
 		this.compagnie = compagnie;
 	}
 
-	@ManyToMany(mappedBy = "vols")
+	@OneToMany(mappedBy = "vol")
 	public Set<Classe> getClasses() {
 		return classes;
 	}

@@ -1,57 +1,50 @@
 package reservation.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "CLASSES")
 public class Classe {
 	private int id;
-	private String nom;
+	private TypeClasse nomClasse;
 	private int prix;
 	private boolean deleted = false;
-	private Set<Vol> vols = new HashSet<Vol>();
+	private Vol vol;
 	
 	public Classe() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Classe(String nom, int prix, boolean deleted) {
+	public Classe(TypeClasse nomClasse, int prix, boolean deleted) {
 		super();
-		this.nom = nom;
+		this.nomClasse = nomClasse;
 		this.prix = prix;
 		this.deleted = deleted;
 	}
-	public Classe(int id, String nom, int prix, boolean deleted) {
+	public Classe(int id, TypeClasse nomClasse, int prix, boolean deleted) {
 		super();
 		this.id = id;
-		this.nom = nom;
+		this.nomClasse = nomClasse;
 		this.prix = prix;
 		this.deleted = deleted;
 	}
 	
-	public Classe(String nom, int prix, boolean deleted, Set<Vol> vols) {
+	public Classe(TypeClasse nomClasse, int prix, boolean deleted, Vol vol) {
 		super();
-		this.nom = nom;
+		this.nomClasse = nomClasse;
 		this.prix = prix;
 		this.deleted = deleted;
-		this.vols = vols;
+		this.vol = vol;
 	}
-	
-	public void addVol(Vol vol) {
-        this.vols.add(vol);
-    }
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,12 +56,12 @@ public class Classe {
 		this.id = id;
 	}
 	
-	@Column(name = "NOM", unique = true, nullable = false, length = 50)
-	public String getNom() {
-		return nom;
+	@Enumerated(EnumType.STRING)
+	public TypeClasse getNomClasse() {
+		return nomClasse;
 	}
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNomClasse(TypeClasse nomClasse) {
+		this.nomClasse = nomClasse;
 	}
 	
 	@Column(name = "PRIX", nullable = false)
@@ -87,17 +80,13 @@ public class Classe {
 		this.deleted = deleted;
 	}
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	    @JoinTable(
-	            name = "CLASSES_VOLS",
-	            joinColumns = @JoinColumn(name = "CLASSE_ID"),
-	            inverseJoinColumns = @JoinColumn(name = "VOL_ID")
-	    )
-	public Set<Vol> getVols() {
-		return vols;
+	@ManyToOne
+	@JoinColumn(name = "VOL_ID", nullable = false)
+	public Vol getVol() {
+		return vol;
 	}
-	public void setVols(Set<Vol> vols) {
-		this.vols = vols;
+	public void setVol(Vol vol) {
+		this.vol = vol;
 	}
 	
 }

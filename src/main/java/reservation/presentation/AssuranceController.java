@@ -27,25 +27,27 @@ public class AssuranceController {
 	AssuranceManager service;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView listAssurance(Model model) {
-	    try {
-	    	//Assurance a = new Assurance();
-	    	//System.out.println(a.isDeleted());
-	    	
-	    	ArrayList<Assurance> listes = new ArrayList<>();
-			  for(Assurance assurance:service.list()){
-				 if(!assurance.isDeleted()){
-					  listes.add(assurance);
-					  System.out.println("Supprimer");
-				 }
-			  }
-			    
-			  model.addAttribute("listeAssurance",listes);
-			  return new ModelAndView("assurance");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			logger.info("erreeeeu");
+	public ModelAndView listAssurance(Model model) throws Exception {
+		if(service.list().isEmpty()){
+			System.out.println("is empty");
+			return new ModelAndView("assurance");
+		}
+		else{
+			try {
+		    	ArrayList<Assurance> listes = new ArrayList<>();
+				  for(Assurance assurance:service.list()){
+					 if(!assurance.isDeleted()){
+						  listes.add(assurance);
+					 }
+				  }
+				  model.addAttribute("listeAssurance",listes);
+				  System.out.println("is not empty "+listes.size());
+				  return new ModelAndView("assurance");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				logger.info("erreeeeu");
+			}
 		}
 		return null; 
 	}

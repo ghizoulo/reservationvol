@@ -91,7 +91,7 @@ protected final Log logger = LogFactory.getLog(getClass());
 							//verifier si le vol contient la classe demandée
 							for (Classe clas : vol.getClasses())
 							{
-								if(clas.getNom().equals(classe))
+								if(clas.getNomClasse().equals(classe))
 									{listeVoles.add(vol); }
 							}
 						}

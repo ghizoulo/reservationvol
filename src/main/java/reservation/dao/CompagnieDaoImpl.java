@@ -32,11 +32,8 @@ public class CompagnieDaoImpl implements CompagnieDaoInter {
         @SuppressWarnings("unchecked")
 		List<Compagnie> compagnies = query.list();
         
-        if (compagnies.size() > 0) {
             return compagnies;
-        } else {
-            throw new Exception("JdbcCompagnieDao: No compagnies found in the database");
-        }
+        
 	}
 
 	@Override

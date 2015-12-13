@@ -31,11 +31,8 @@ public class AeroportDaoImpl implements AeroportDaoInter {
         @SuppressWarnings("unchecked")
 		List<Aeroport> aeroports = query.list();
         
-        if (aeroports.size() > 0) {
             return aeroports;
-        } else {
-            throw new Exception("JdbcAeroportDao: No aeroports found in the database");
-        }
+        
 	}
 
 	@Override

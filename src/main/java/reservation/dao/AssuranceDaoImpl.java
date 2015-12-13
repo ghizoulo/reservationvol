@@ -32,11 +32,8 @@ public class AssuranceDaoImpl implements AssuranceDaoInter {
         @SuppressWarnings("unchecked")
 		List<Assurance> assurances = query.list();
         
-        if (assurances.size() > 0) {
             return assurances;
-        } else {
-            throw new Exception("JdbcAssuranceDao: No assurances found in the database");
-        }
+        
 	}
 
 	@Override

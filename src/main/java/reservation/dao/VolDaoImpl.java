@@ -31,12 +31,7 @@ public class VolDaoImpl implements VolDaoInter {
         query = session.createQuery("FROM Vol");
         @SuppressWarnings("unchecked")
 		List<Vol> vols = query.list();
-        
-        if (vols.size() > 0) {
-            return vols;
-        } else {
-            throw new Exception("JdbcVolDao: No vols found in the database");
-        }
+        return vols;
 	}
 
 	@Override

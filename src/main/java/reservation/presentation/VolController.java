@@ -23,6 +23,7 @@ import reservation.model.Aeroport;
 import reservation.model.Classe;
 import reservation.model.Compagnie;
 import reservation.model.InfoEscale;
+import reservation.model.TypeClasse;
 import reservation.model.Vol;
 
 @Controller
@@ -47,14 +48,18 @@ public class VolController {
 			@RequestParam String heureDepart, @RequestParam String heureArrivee, @RequestParam int aeroportDepartid,
 			@RequestParam int aeroportArriveeid, @RequestParam int compagnieid, @RequestParam boolean open,
 			@RequestParam String heureArriveeEscale, @RequestParam String heureDepartEscale,
-			@RequestParam int aeroportEscale, @RequestParam String economique, @RequestParam String premium,
-			@RequestParam String affaires, @RequestParam String premiere, @RequestParam int prixclasse1,
+			@RequestParam int aeroportEscale, @RequestParam int prixclasse1,
 			@RequestParam int prixclasse2, @RequestParam int prixclasse3, @RequestParam int prixclasse4)throws Exception {
 			
-          System.out.println(economique);
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date datedepart = formatter.parse(dateDepart);
 		Date datearrivee = formatter.parse(dateArrivee);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		System.out.println(heureDepart);
+		System.out.println(sdf.parse(heureDepart));
+		Date hDepart = sdf.parse(heureDepart);
+		Date hArrive = sdf.parse(heureArrivee);
 		try {
 			//instanciation des classes 
 			Compagnie compagnie = new Compagnie();
@@ -66,31 +71,18 @@ public class VolController {
 			aeroportdepart = serviceAeroport.getAeroportById(aeroportDepartid);
 			aeroportarrivee = serviceAeroport.getAeroportById(aeroportArriveeid);
 			aeroportescale = serviceAeroport.getAeroportById(aeroportEscale);
-			// creer un vol, un escale et une classe
-			Vol a = new Vol(datedepart, datearrivee, heureDepart, heureArrivee, false, open, aeroportdepart,
+			// creer un vol
+			Vol a = new Vol(datedepart, datearrivee, hDepart, hArrive, false, open, aeroportdepart,
 					aeroportarrivee, compagnie);
-			InfoEscale E = new InfoEscale(heureArriveeEscale, heureDepartEscale, a, aeroportescale);
-			Classe classeEconomique = new Classe(economique, prixclasse1, false);
-			Classe classePerimium = new Classe(premium, prixclasse2, false);
-			Classe classeAffaires = new Classe(affaires, prixclasse3, false);
-			Classe classePremiere = new Classe(premiere, prixclasse4, false);
-			// ajouter la classe à Set de vol
-			a.addClasse(classeEconomique);
-			a.addClasse(classePerimium);
-			a.addClasse(classeAffaires);
-			a.addClasse(classePremiere);
-			//ajouter le vol à Set de la classe
-			classeEconomique.addVol(a);
-			classePerimium.addVol(a);
-			classeAffaires.addVol(a);
-			classePremiere.addVol(a);
-			//commit the creation
-			serviceClasse.add(classeEconomique);
-			serviceClasse.add(classePerimium);
-			serviceClasse.add(classeAffaires);
-			serviceClasse.add(classePremiere);
+			//ajout du vol
 			serviceVol.add(a);
-			serviceEscale.add(E);
+			//ajout des classes
+			serviceClasse.add(new Classe(TypeClasse.Economique, prixclasse1, false, a));
+			serviceClasse.add(new Classe(TypeClasse.Premium, prixclasse2, false, a));
+			serviceClasse.add(new Classe(TypeClasse.Affaire, prixclasse3, false, a));
+			serviceClasse.add(new Classe(TypeClasse.Premiere, prixclasse4, false, a));
+			//ajout de l'escale
+			serviceEscale.add(new InfoEscale(heureArriveeEscale, heureDepartEscale, a, aeroportescale));
 			// serviceClasse.add(C);
 
 			ArrayList<Vol> listes = new ArrayList<>();
@@ -113,60 +105,65 @@ public class VolController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listVol(Model model) throws Exception {
-		try {
-			// Assurance a = new Assurance();
-			// System.out.println(a.isDeleted());
-
-			ArrayList<Vol> listes = new ArrayList<>();
-			for (Vol vol : serviceVol.list()) {
-				// System.out.println(vol.getHeureDepart());
-
-				if (!vol.isDeleted()) {
-					listes.add(vol);
-				}
-			}
+		
+		//on teste si la liste des vols est vide si oui
+		//on charge la liste des aeroports et de compagnie
+		//pour l'utiliser dans l'ajout d'un nouveau vol
+		// et on returne vol.jsp
+		if(serviceVol.list().isEmpty()){
 			ArrayList<Aeroport> listesAeroport = new ArrayList<>();
 			for (Aeroport aeroport : serviceAeroport.list()) {
-
+	
 				if (!aeroport.isDeleted()) {
 					listesAeroport.add(aeroport);
-					// System.out.println("Supprimer");
 				}
 			}
 			ArrayList<Compagnie> listesCompagnie = new ArrayList<>();
 			for (Compagnie compagnie : serviceCompagnie.list()) {
-
 				if (!compagnie.isDeleted()) {
 					listesCompagnie.add(compagnie);
 				}
 			}
 			model.addAttribute("listeCompagnie", listesCompagnie);
 			model.addAttribute("listeAeroport", listesAeroport);
-			model.addAttribute("listeVol", listes);
 			return new ModelAndView("vol");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			logger.info("erreeeeu");
+		}
+		else{
+			//sinon la liste des vols, des aeroports et des compagnies
+			// sont chargé pour les afficher
+			// la vue vol.jsp est returné
+			try {
+				ArrayList<Vol> listes = new ArrayList<>();
+				for (Vol vol : serviceVol.list()) {
+					if (!vol.isDeleted()) {
+						listes.add(vol);
+					}
+				}
+				ArrayList<Aeroport> listesAeroport = new ArrayList<>();
+				for (Aeroport aeroport : serviceAeroport.list()) {
+		
+					if (!aeroport.isDeleted()) {
+						listesAeroport.add(aeroport);
+					}
+				}
+				ArrayList<Compagnie> listesCompagnie = new ArrayList<>();
+				for (Compagnie compagnie : serviceCompagnie.list()) {
+					if (!compagnie.isDeleted()) {
+						listesCompagnie.add(compagnie);
+					}
+				}
+				model.addAttribute("listeCompagnie", listesCompagnie);
+				model.addAttribute("listeAeroport", listesAeroport);
+				model.addAttribute("listeVol", listes);
+				return new ModelAndView("vol");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				logger.info("erreeeeu");
+			}
 		}
 		return null;
 	}
-
-	/*
-	 * @RequestMapping(path="update", method = RequestMethod.POST) public
-	 * ModelAndView updateVol(Model model,@RequestParam(value="type")
-	 * TypeAssurance type2,
-	 * 
-	 * @RequestParam int tarif ) { try { System.out.println("avant modification"
-	 * ); // Vol a= new Vol(tarif, type2, false); service.update(a);
-	 * System.out.println("bien modifier"); ArrayList<Vol> listes = new
-	 * ArrayList<>(); for(Vol vol:service.list()){ if(!vol.isDeleted()){
-	 * listes.add(vol); } }
-	 * 
-	 * model.addAttribute("listeVol",listes); return new ModelAndView("vol"); }
-	 * catch (Exception e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); logger.info("erreeeeu"); } return null; }
-	 */
 
 	@RequestMapping(path = "delete", method = RequestMethod.GET)
 	public ModelAndView deleteVol(Model model, @RequestParam int id) {

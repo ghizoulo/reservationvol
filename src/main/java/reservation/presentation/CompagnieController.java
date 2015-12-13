@@ -25,25 +25,24 @@ protected final Log logger = LogFactory.getLog(getClass());
 	CompagnieManager service;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView listCompagnie(Model model) {
-	    try {
-	    	//Assurance a = new Assurance();
-	    	//System.out.println(a.isDeleted());
-//	    	Compagnie comp = new Compagnie(); 
-//	    	 comp = service.getCompagnieById(1);
-	    	ArrayList<Compagnie> listes = new ArrayList<>();
-			  for(Compagnie compagnie:service.list()){
-				  if(!compagnie.isDeleted()){
-					  listes.add(compagnie);
-					  System.out.println("Supprimer");
-				  }
-			  }  
-			  model.addAttribute("listeCompagnie",listes);
-	    	  return new ModelAndView("compagnie");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			logger.info("erreeeeu");
+	public ModelAndView listCompagnie(Model model) throws Exception {
+		if(service.list().isEmpty())
+			return new ModelAndView("compagnie");
+		else{
+			try {
+		    	ArrayList<Compagnie> listes = new ArrayList<>();
+				  for(Compagnie compagnie:service.list()){
+					  if(!compagnie.isDeleted()){
+						  listes.add(compagnie);
+					  }
+				  }  
+				  model.addAttribute("listeCompagnie",listes);
+		    	  return new ModelAndView("compagnie");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				logger.info("erreeeeu");
+			}
 		}
 		return null; 
 	}

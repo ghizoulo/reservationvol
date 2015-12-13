@@ -51,7 +51,9 @@
 
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                  <table id="example2" class="table table-bordered table-hover">
+                  <v:choose>
+								<v:when test="${not empty listeCompagnie}">
+									                  <table id="example2" class="table table-bordered table-hover">
                     <thead>
                       <tr>
                         <th>Nom Compagnie</th>
@@ -93,6 +95,17 @@
                     </tbody>
                 
                   </table>
+								</v:when>
+								<v:otherwise>
+								<div class="row">
+									<div class="col-md-offset-2 col-md-8">
+										<div style='text-align:center;'>
+											<h3>No data in the database!</h3>
+										</div>
+									</div>
+								</div>
+								</v:otherwise>
+							</v:choose>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->

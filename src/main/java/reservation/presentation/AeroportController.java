@@ -26,21 +26,26 @@ public class AeroportController {
 	AeroportManager serviceAeroport;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView listAeroport(Model model) {
-	    try {
-	    	ArrayList<Aeroport> listes = new ArrayList<>();
-			  for(Aeroport aeroport:serviceAeroport.list()){
-				 if(!aeroport.isDeleted()){
-					  listes.add(aeroport);
-				 }
-			  }
-			    
-			  model.addAttribute("listeAeroport",listes);
-			  return new ModelAndView("aeroport");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			logger.info("erreeeeu");
+	public ModelAndView listAeroport(Model model) throws Exception {
+		
+		if(serviceAeroport.list().isEmpty())
+			return new ModelAndView("aeroport");
+		else{
+			try {
+		    	ArrayList<Aeroport> listes = new ArrayList<>();
+				  for(Aeroport aeroport:serviceAeroport.list()){
+					 if(!aeroport.isDeleted()){
+						  listes.add(aeroport);
+					 }
+				  }
+				    
+				  model.addAttribute("listeAeroport",listes);
+				  return new ModelAndView("aeroport");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				logger.info("erreeeeu");
+			}
 		}
 		return null; 
 	}

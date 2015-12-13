@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>JSP Template Inheritance</title>
+        <title>Airlines</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	    <!-- Bootstrap 3.3.5 -->
 	    <link rel="stylesheet" href="/ReservationVol/assets/bootstrap/css/bootstrap.min.css">
@@ -319,7 +319,7 @@
             <li class="treeview">
               <a href="aeroport.htm">
                 <i class="fa fa-pie-chart"></i>
-                <span>Aeroprt</span>
+                <span>Aeroport</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
             </li>

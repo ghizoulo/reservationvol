@@ -50,14 +50,13 @@
 														Arrivée:</label> <input type="date" class="form-control"
 														name="dateArrivee">
 												</div>
-
 												<div class="form-group">
 													<label for="heureDepart" class="control-label">heureDepart:</label>
-													<input type="text" class="form-control" name="heureDepart">
+													<input type="time" class="form-control" name="heureDepart">
 												</div>
 												<div class="form-group">
 													<label for="heureArrivee" class="control-label">heureArrivee:</label>
-													<input type="text" class="form-control" name="heureArrivee">
+													<input type="time" class="form-control" name="heureArrivee">
 												</div>
 
 												<div class="form-group">
@@ -130,8 +129,8 @@
 														
 															<div class="form-group">
 																<label> <input type="checkbox" class="flat-red"
-																	name="economique" value="economique" tabindex="1" checked>Économique
-																</label> </br> <label for="prixclasse1" class="control-label">Prix:</label>
+																	name="economique" value="Economique" tabindex="1" checked>Économique
+																</label>  <label for="prixclasse1" class="control-label">Prix:</label>
 																<input type="text" class="form-control"
 																	name="prixclasse1">
 															</div>
@@ -140,7 +139,7 @@
 															<div class="form-group">
 																<label> <input type="checkbox" class="flat-red"
 																	name="premium" value="Premium" tabindex="2">Premium
-																	economy</label></br> <label for="prixclasse2" class="control-label">Prix:</label>
+																	economy</label> <label for="prixclasse2" class="control-label">Prix:</label>
 																<input type="text" class="form-control"
 																	name="prixclasse2">
 															</div>
@@ -148,14 +147,14 @@
 														
 															<div class="form-group">
 																<label> <input type="checkbox" class="flat-red"
-																	name="affaires" value="Affaires" tabindex="3">Affaires
-																</label></br> <label for="prixclasse3" class="control-label">Prix:</label>
+																	name="affaire" value="Affaire" tabindex="3">Affaire
+																</label> <label for="prixclasse3" class="control-label">Prix:</label>
 																<input type="text" class="form-control" name="prixclasse3">
 															</div>
 															<div class="form-group">
 																<label> <input type="checkbox" class="flat-red"
-																	name="premiere" value="Première" tabindex="4">Première
-																</label></br> <label for="prixclasse4" class="control-label">Prix:</label>
+																	name="premiere" value="Premiere" tabindex="4">Première
+																</label> <label for="prixclasse4" class="control-label">Prix:</label>
 																<input type="text" class="form-control"
 																	name="prixclasse4">
 															</div>
@@ -176,34 +175,47 @@
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-							<table id="example2" class="table table-bordered table-hover">
-								<thead>
-									<tr>
-										<th>Date de départ</th>
-										<th>Date d'arrivée</th>
-										<th>Heure Depart</th>
-										<th>Heure d'arrivée</th>
-										<th>Status Vol</th>
-										<th>Aeroport Départ</th>
-										<th>Aerorport d'arrivée</th>
-										<th>Option</th>
-									</tr>
-								</thead>
-								<tbody>
-									<v:forEach items="${listeVol}" var="o">
-										<tr>
-											<td>${o.dateDepart}</td>
-											<td>${o.dateArrivee}</td>
-											<td>${o.heureDepart}</td>
-											<td>${o.heureArrivee}</td>
-											<td>${o.open}</td>
-											<td>${o.aeroportDepart.nom}</td>
-											<td>${o.aeroportArrivee.nom}</td>
-											<td><a href="vol/delete.htm?id=${o.id}">supprimer</a>
-										</tr>
-									</v:forEach>
-								</tbody>
-							</table>
+							<v:choose>
+								<v:when test="${not empty listeVol}">
+									<table id="example2" class="table table-bordered table-hover">
+										<thead>
+											<tr>
+												<th>Date de départ</th>
+												<th>Date d'arrivée</th>
+												<th>Heure Depart</th>
+												<th>Heure d'arrivée</th>
+												<th>Status Vol</th>
+												<th>Aeroport Départ</th>
+												<th>Aerorport d'arrivée</th>
+												<th>Option</th>
+											</tr>
+										</thead>
+										<tbody>
+											<v:forEach items="${listeVol}" var="o">
+												<tr>
+													<td>${o.dateDepart}</td>
+													<td>${o.dateArrivee}</td>
+													<td>${o.heureDepart}</td>
+													<td>${o.heureArrivee}</td>
+													<td>${o.open}</td>
+													<td>${o.aeroportDepart.nom}</td>
+													<td>${o.aeroportArrivee.nom}</td>
+													<td><a href="vol/delete.htm?id=${o.id}">supprimer</a>
+												</tr>
+											</v:forEach>
+										</tbody>
+									</table>
+								</v:when>
+								<v:otherwise>
+								<div class="row">
+									<div class="col-md-offset-2 col-md-8">
+										<div style='text-align:center;'>
+											<h3>No data in the database!</h3>
+										</div>
+									</div>
+								</div>
+								</v:otherwise>
+							</v:choose>
 						</div>
 						<!-- /.box-body -->
 					</div>
