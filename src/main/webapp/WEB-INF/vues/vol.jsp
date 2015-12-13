@@ -61,8 +61,8 @@
 												</div>
 
 												<div class="form-group">
-													<label class="control-label">Aeroport Départ:</label> <select
-														class="form-control" name="aeroportDepartid">
+													<label class="control-label">Aeroport Départ:</label> 
+													<select class="form-control" name="aeroportDepartid">
 														<v:forEach items="${listeAeroport}" var="ae">
 															<option value="${ae.id}">${ae.nom}</option>
 														</v:forEach>

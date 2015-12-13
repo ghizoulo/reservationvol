@@ -40,9 +40,7 @@
 		<param-value>.jsp</param-value>
 	</context-param>
 	<welcome-file-list>
-		<welcome-file>
-            login.jsp
-        </welcome-file>
+		<welcome-file>login.jsp</welcome-file>
 	</welcome-file-list>
 
 	<jsp-config>
