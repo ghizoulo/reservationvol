@@ -69,7 +69,8 @@
 					      <br/>
 					      		  <div class="form-group">
 								    <label for="exampleInputEmail1">Aeroport Départ</label>
-								    <select class="form-control" name="idAeroportDepart">
+								    <select class="form-control" name="idAeroportDepart" required>
+								    		<option value="" disabled selected>Aéroport de Départ</option>
 										  <v:forEach items="${listeAeroport}" var="aD">
 											<option value="${aD.id}">${aD.nom}</option>
 									    </v:forEach>
@@ -77,7 +78,8 @@
 								  </div>
 								  <div class="form-group">
 								    <label for="exampleInputEmail1">Aeroport d'arrivée</label>
-								    <select class="form-control" name="idAeroportArrivee">
+								    <select class="form-control" name="idAeroportArrivee" required>
+								    		<option value="" disabled selected>Aéroport d'Arrivée</option>
 										  <v:forEach items="${listeAeroport}" var="aA">
 											<option value="${aA.id}">${aA.nom}</option>
 									    </v:forEach>
@@ -87,10 +89,10 @@
 								          <label >Escale</label>
 										  <div class="radio">
 										    <label>
-										      <input type="radio" name="escale" value="false" checked> Sans Escale
+										      <input type="radio" name="escale" value="Non" checked> Sans Escale
 										    </label> &nbsp;
 										    <label>
-										      <input type="radio" name="escale" value="true"> Avec Escale
+										      <input type="radio" name="escale" value="Oui"> Avec Escale
 										    </label>
 										  </div>
 								 </div>
@@ -102,16 +104,18 @@
 								 </div>
 								 <div class="form-group">
 								    <label for="exampleInputEmail1">Classe</label>
-								    <select class="form-control" name="classe">
-									  <option value="economique">Economique</option>
+								    <select class="form-control" name="classe" required>
+								      <option value="" disabled selected>Selectionnez la classe</option>
+									  <option value="Economique">Economique</option>
 									  <option value="Premium">Premium économique</option>
-									  <option value="Affaires">Affaires</option>
-									  <option value="Première">Première</option>
+									  <option value="Affaire">Affaires</option>
+									  <option value="Premiere">Première</option>
 									</select>
 								  </div>
 								  <div class="form-group">
 								    <label for="exampleInputEmail1">Compagnie aérienne</label>
-								    <select class="form-control btn-sm" name="compagnie">
+								    <select class="form-control btn-sm" name="compagnie" required>
+								    		<option value="" disabled selected>Selectionnez la Compgnie Aérienne</option>
 								    	<v:forEach items="${listeCompagnie}" var="o">
 											<option value="${o.id}">${o.nom}</option>
 									    </v:forEach>
@@ -121,7 +125,70 @@
 					      </form>
 					    </div>
 					    <div id="menu1" class="tab-pane fade">
-					      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					      <form action="chercherAlleeRetour.htm" method="POST">
+					      <br/>
+					      		  <div class="form-group">
+								    <label for="exampleInputEmail1">Aeroport Départ</label>
+								    <select class="form-control" name="idAeroportDepart" required>
+								    		<option value="" disabled selected>Aéroport de Départ</option>
+										  <v:forEach items="${listeAeroport}" var="aD">
+											<option value="${aD.id}">${aD.nom}</option>
+									    </v:forEach>
+									</select>
+								  </div>
+								  <div class="form-group">
+								    <label for="exampleInputEmail1">Aeroport d'arrivée</label>
+								    <select class="form-control" name="idAeroportArrivee" required>
+								    		<option value="" disabled selected>Aéroport d'Arrivée</option>
+										  <v:forEach items="${listeAeroport}" var="aA">
+											<option value="${aA.id}">${aA.nom}</option>
+									    </v:forEach>
+									</select>
+								  </div>
+								  <div class="form-group">
+								          <label >Escale</label>
+										  <div class="radio">
+										    <label>
+										      <input type="radio" name="escale" value="Non" checked> Sans Escale
+										    </label> &nbsp;
+										    <label>
+										      <input type="radio" name="escale" value="Oui"> Avec Escale
+										    </label>
+										  </div>
+								 </div>
+								 <div class="form-group">
+								          <label for="exampleInputEmail1">Date Départ</label> &nbsp; &nbsp;
+										  <v:set var="today" value="<%=new Date()%>"/>
+										  <v:set var="tomorrow" value="<%=new Date(new Date().getTime() + 60*60*24*1000)%>"/>
+										 <input type="date" class="btn btn-primary" name="dateDepart" min="<fmt:formatDate type="date" value="${today}" pattern="yyyy-MM-dd"/>" value="<fmt:formatDate type="date" value="${today}" pattern="yyyy-MM-dd"/>"/>
+								 </div>
+								 <div class="form-group">
+								          <label for="exampleInputEmail1">DateRetour</label> &nbsp; &nbsp;
+										  <v:set var="today" value="<%=new Date()%>"/>
+										  <v:set var="tomorrow" value="<%=new Date(new Date().getTime() + 60*60*24*1000)%>"/>
+										 <input type="date" class="btn btn-primary" name="dateRetour" min="<fmt:formatDate type="date" value="${today}" pattern="yyyy-MM-dd"/>" value="<fmt:formatDate type="date" value="${today}" pattern="yyyy-MM-dd"/>"/>
+								 </div>
+								 <div class="form-group">
+								    <label for="exampleInputEmail1">Classe</label>
+								    <select class="form-control" name="classe" required>
+								      <option value="" disabled selected>Selectionnez la classe</option>
+									  <option value="Economique">Economique</option>
+									  <option value="Premium">Premium économique</option>
+									  <option value="Affaire">Affaires</option>
+									  <option value="Premiere">Première</option>
+									</select>
+								  </div>
+								  <div class="form-group">
+								    <label for="exampleInputEmail1">Compagnie aérienne</label>
+								    <select class="form-control btn-sm" name="compagnie" required>
+								    		<option value="" disabled selected>Selectionnez la Compgnie Aérienne</option>
+								    	<v:forEach items="${listeCompagnie}" var="o">
+											<option value="${o.id}">${o.nom}</option>
+									    </v:forEach>
+									</select>
+								  </div>
+								  <button type="submit" class="btn btn-default">Submit</button>
+					      </form>
 					    </div>
 					  </div>
 				</div>
