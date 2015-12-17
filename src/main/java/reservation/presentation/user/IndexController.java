@@ -75,7 +75,8 @@ protected final Log logger = LogFactory.getLog(getClass());
 				
 				Aeroport AeroportDepart=null;
 				Aeroport AeroportArrivee=null;
-				ArrayList<Vol> listeVoles = new ArrayList<>();
+				ArrayList<Vol> listeVolesDepart = new ArrayList<>();
+				ArrayList<Classe> listeClassesDepart = new ArrayList<>();
 				for(Aeroport aeroport : serviceAeroport.list() )
 				{
 					if(aeroport.getId()==idAeroportDepart && !aeroport.isDeleted())
@@ -89,17 +90,18 @@ protected final Log logger = LogFactory.getLog(getClass());
 				}
 				
 				//call of fct local search des voles pour remplir voles depart
-				LocalSearchVol(compagnie,AeroportDepart,AeroportArrivee,listeVoles,classe, dateDepart);
-				for (Vol vo : listeVoles)
-				{System.out.println(vo.getId());}
+				LocalSearchVol(compagnie,AeroportDepart,AeroportArrivee,listeVolesDepart,listeClassesDepart,classe, dateDepart);
+				
 				//renvoie de elem
-				model.addAttribute("listeVol", listeVoles);
+				model.addAttribute("listeVolesDepart", listeVolesDepart);
+				model.addAttribute("listeClassesDepart", listeClassesDepart);
 				model.addAttribute("depart", AeroportDepart.getNom());
 				model.addAttribute("destination", AeroportArrivee.getNom());
 				model.addAttribute("escale", escale);
 				model.addAttribute("dateDepart", dateDepart);
 				model.addAttribute("dateRetour", "--");
 				model.addAttribute("classe", classe);
+				model.addAttribute("compagnie", compagnie);
 
 				return new ModelAndView("listeVolesCherches");
 				
@@ -126,6 +128,8 @@ protected final Log logger = LogFactory.getLog(getClass());
 				Aeroport AeroportArrivee=null;
 				ArrayList<Vol> listeVolesDepart = new ArrayList<>();
 				ArrayList<Vol> listeVolesRetour = new ArrayList<>();
+				ArrayList<Classe> listeClassesDepart = new ArrayList<>();
+				ArrayList<Classe> listeClassesRetour = new ArrayList<>();
 				
 				//vérifier que l'aeroport n'est pas deleted
 				for(Aeroport aeroport : serviceAeroport.list() )
@@ -140,19 +144,23 @@ protected final Log logger = LogFactory.getLog(getClass());
 					}
 				}
 				//call of fct local search des voles pour remplir voles depart
-				LocalSearchVol(compagnie,AeroportDepart,AeroportArrivee,listeVolesDepart,classe, dateDepart);
+				LocalSearchVol(compagnie,AeroportDepart,AeroportArrivee,listeVolesDepart,listeClassesDepart,classe,dateDepart);
 				
 				//call of fct local search des voles pour remplir voles Arrivee
-				LocalSearchVol(compagnie,AeroportArrivee,AeroportDepart,listeVolesRetour,classe, dateRetour);
+				LocalSearchVol(compagnie,AeroportArrivee,AeroportDepart,listeVolesRetour,listeClassesRetour,classe, dateRetour);
 				
 				model.addAttribute("listeVolesDepart", listeVolesDepart);
-				model.addAttribute("listeVolesArrivee", listeVolesRetour);
+				model.addAttribute("listeVolesRetour", listeVolesRetour);
+				model.addAttribute("listeClassesDepart", listeClassesDepart);
+				model.addAttribute("listeClassesRetour", listeClassesRetour);
 				model.addAttribute("depart", AeroportDepart.getNom());
 				model.addAttribute("destination", AeroportArrivee.getNom());
 				model.addAttribute("escale", escale);
 				model.addAttribute("dateDepart", dateDepart);
 				model.addAttribute("dateRetour", dateRetour);
 				model.addAttribute("classe", classe);
+				model.addAttribute("compagnie", compagnie);
+				
 				return new ModelAndView("listeVolesCherches");
 			} catch (Exception e) 
 			  {
@@ -162,8 +170,9 @@ protected final Log logger = LogFactory.getLog(getClass());
 			  }
 		return null;
 	}
+	//private void LocalSearchClasses()
 	private void LocalSearchVol(int compagnie,Aeroport Aedepart,
-								Aeroport Aearrivee, ArrayList<Vol> listeVoles,
+								Aeroport Aearrivee, ArrayList<Vol> listeVoles,ArrayList<Classe> listeClasses,
 								String classe, String dateDepart)
 	{
 		try {
@@ -176,12 +185,14 @@ protected final Log logger = LogFactory.getLog(getClass());
 						&& vol.getAeroportArrivee().getId()==(Aearrivee.getId())
 						&& formatter.format(vol.getDateDepart().getTime()).equals(dateDepart.toString()))
 					{	
-						System.out.println("condition date vérifiée");
 						//verifier si le vol contient la classe demandée
 						for (Classe clas : serviceClasse.list())
 						{
-							if(clas.getNomClasse().toString().equals(classe) && clas.getVol().getId()==vol.getId())
-								{listeVoles.add(vol); }
+							if(clas.getNomClasse().toString().equals(classe) && clas.getVol().getId()==vol.getId() && !clas.isDeleted())
+								{
+									listeVoles.add(vol);
+									listeClasses.add(clas);
+								}
 						}
 					}
 			}
@@ -195,7 +206,7 @@ protected final Log logger = LogFactory.getLog(getClass());
 	}
 	
 	//pour remplir les dropdown list
-	@RequestMapping(value={"/index", "/chercherSimple"})
+	@RequestMapping(value="/index")
 	public ModelAndView initIndex(Model model) throws Exception {
 		try {
 			
@@ -204,7 +215,6 @@ protected final Log logger = LogFactory.getLog(getClass());
 			for (Aeroport aeroport : serviceAeroport.list()) {
 				if (!aeroport.isDeleted()) {
 					dropAeroport.add(aeroport);
-					System.out.println(aeroport.getNom());
 				}
 			}
 			

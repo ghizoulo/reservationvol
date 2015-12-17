@@ -98,7 +98,7 @@ public class Client {
 		this.adresse = adresse;
 	}
 
-	@Column(name = "TELEPHONE", unique = true, nullable = false, length = 50)
+	@Column(name = "TELEPHONE", unique = false, nullable = false, length = 50)
 	public String getTelephone() {
 		return telephone;
 	}
@@ -107,7 +107,7 @@ public class Client {
 		this.telephone = telephone;
 	}
 
-	@Column(name = "MAIL", unique = true, nullable = false, length = 50)
+	@Column(name = "MAIL", unique = false, nullable = false, length = 50)
 	public String getMail() {
 		return mail;
 	}

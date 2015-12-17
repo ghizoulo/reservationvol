@@ -59,8 +59,8 @@
 				<div class="container">
 					  <h2>Dynamic Tabs</h2>
 					  <ul class="nav nav-tabs">
-					    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-					    <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+					    <li class="active"><a data-toggle="tab" href="#home">Allée Simple</a></li>
+					    <li><a data-toggle="tab" href="#menu1">Allée-Retour </a></li>
 					  </ul>
 					
 					  <div class="tab-content">
@@ -73,7 +73,7 @@
 								    		<option value="" disabled selected>Aéroport de Départ</option>
 										  <v:forEach items="${listeAeroport}" var="aD">
 											<option value="${aD.id}">${aD.nom}</option>
-									    </v:forEach>
+									      </v:forEach>
 									</select>
 								  </div>
 								  <div class="form-group">
