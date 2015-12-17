@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class Compagnie {
 	private int id;
 	private String nom;
-	private String PhotoName;
+	private String photoName;
 	private boolean deleted = false;
 	private Set<Vol> vols = new HashSet<Vol>();
 	
@@ -33,7 +33,7 @@ public class Compagnie {
 	public Compagnie(String nom, String photoName, boolean deleted) {
 		super();
 		this.nom = nom;
-		PhotoName = photoName;
+		this.photoName = photoName;
 		this.deleted = deleted;
 	}
 	public Compagnie(int id, String nom, boolean deleted) {
@@ -86,10 +86,10 @@ public class Compagnie {
 	
 	@Column(name = "PHOTONAME", nullable = true)
 	public String getPhotoName() {
-		return PhotoName;
+		return this.photoName;
 	}
 	public void setPhotoName(String photoName) {
-		PhotoName = photoName;
+		this.photoName = photoName;
 	}
 	
 }
