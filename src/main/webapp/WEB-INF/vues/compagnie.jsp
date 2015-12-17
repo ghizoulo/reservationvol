@@ -34,10 +34,14 @@
         <h4 class="modal-title" id="exampleModalLabel">Ajouter une Compagnie</h4>
       </div>
       <div class="modal-body">
-        <form method="POST" action="compagnie/add.htm">
+        <form method="POST" action="compagnie/add.htm" enctype="multipart/form-data">
           <div class="form-group">
             <label for="recipient-name" class="control-label">Nom Compagnie:</label>
             <input type="text" class="form-control" name="nom">
+          </div>
+          <div class="form-group">
+            <label for="logo" class="control-label">Logo de la Compagnie:</label>
+         	<input type="file" name="logo" class="form-control" />
           </div>
          
        <input type="submit" class="btn btn-primary" value="Enregistrer">
