@@ -5,14 +5,11 @@
 <layout:extends name="base">
 	<layout:put block="contents">
 		<section class="content-header">
-			<h1>
-				Data Tables <small>advanced tables</small>
-			</h1>
-			<ol class="breadcrumb">
-				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-				<li><a href="#">Tables</a></li>
-				<li class="active">Data tables</li>
-			</ol>
+			<h1><b>Liste des Compagnies</b></h1>
+          		<ol class="breadcrumb">
+            		<li><a href="login.jsp"><i class="fa fa-dashboard"></i>Admin</a></li>
+            		<li class="active">Compagnie</li>
+          		</ol>
 		</section>
 
 		<!-- Main content -->
@@ -21,36 +18,32 @@
 				<div class="col-xs-12">
 					<div class="box">
 						<div class="box-header">
-							<h3 class="box-title">Liste des Compagnies</h3>
-							<button type="button" class="btn btn-primary" data-toggle="modal"
-								data-target="#exampleModal" data-whatever="@getbootstrap">ADD</button>
-
-							<div class="modal fade" id="exampleModal" tabindex="-1"
-								role="dialog" aria-labelledby="exampleModalLabel">
+							<div class="row">
+                  				<div class="col-md-1 col-md-offset-11">
+                      				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap" style="/* text-align: right; */">
+                        			<span class="glyphicon glyphicon-plus-sign"></span>ADD</button>
+                  				</div>
+              				</div>
+							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
-											<h4 class="modal-title" id="exampleModalLabel">Ajouter
-												une Compagnie</h4>
+											<h4 class="modal-title" id="exampleModalLabel">Ajouter une Compagnie</h4>
 										</div>
 										<div class="modal-body">
 											<form method="POST" action="compagnie/add.htm"
 												enctype="multipart/form-data">
 												<div class="form-group">
-													<label for="recipient-name" class="control-label">Nom
-														Compagnie:</label> <input type="text" class="form-control"
-														name="nom">
+													<label for="recipient-name" class="control-label">Nom Compagnie:</label> 
+													<input type="text" class="form-control" name="nom">
 												</div>
 												<div class="form-group">
-													<label for="logo" class="control-label">Logo de la
-														Compagnie:</label> <input type="file" name="logo"
-														class="form-control" />
+													<label for="logo" class="control-label">Logo de la Compagnie:</label> 
+													<input type="file" name="logo" class="form-control" />
 												</div>
-
 												<input type="submit" class="btn btn-primary" value="Enregistrer">
 											</form>
 										</div>
@@ -72,7 +65,7 @@
 							</div>
 							<v:choose>
 								<v:when test="${not empty listeCompagnie}">
-									<table id="example2" class="table table-bordered table-hover">
+									<table id="mondatatable" class="table table-bordered table-hover">
 										<thead>
 											<tr>
 												<th>Logo de la compagnie</th>
@@ -85,33 +78,26 @@
 												<tr>
 													<td><img alt="${o.nom}" src="${o.photoName}"></td>
 													<td>${o.nom}</td>
-													<td><a href="compagnie/delete.htm?id=${o.id}">supprimer</a>
-														<button type="button" class="btn btn-primary"
-															data-toggle="modal" data-target="#exampleModal"
-															data-whatever="@getbootstrap">Modifier</button>
-														<div class="modal fade" id="exampleModal" tabindex="-1"
-															role="dialog" aria-labelledby="exampleModalLabel">
+													<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${o.id}" data-whatever="@getbootstrap">
+															<span class="glyphicon glyphicon-pencil"></span></button>
+                    									<a href="compagnie/delete.htm?id=${o.id}" class="btn btn-primary">
+                    										<span class="glyphicon glyphicon-trash"></span></a>
+														<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 															<div class="modal-dialog" role="document">
 																<div class="modal-content">
 																	<div class="modal-header">
-																		<button type="button" class="close"
-																			data-dismiss="modal" aria-label="Close">
+																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																			<span aria-hidden="true">&times;</span>
 																		</button>
-																		<h4 class="modal-title" id="exampleModalLabel">Modifier
-																			une Compagnie</h4>
+																		<h4 class="modal-title" id="exampleModalLabel">Modifier une Compagnie</h4>
 																	</div>
 																	<div class="modal-body">
 																		<form method="POST" action="compagnie/update.htm">
 																			<div class="form-group">
-																				<label for="recipient-name" class="control-label">Nom
-																					Compagnie:</label> <input type="email" class="form-control"
-																					id="exampleInputEmail1" placeholder="Enter email">
-																				<!--<input type="text" class="form-control" name="type" placeholder="hhhhh">-->
+																				<label for="recipient-name" class="control-label">Nom Compagnie:</label> 
+																				<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
 																			</div>
-																			<input type="submit" class="btn btn-primary"
-																				value="Enregistrer">
-
+																			<input type="submit" class="btn btn-primary" value="Enregistrer">
 																		</form>
 																	</div>
 

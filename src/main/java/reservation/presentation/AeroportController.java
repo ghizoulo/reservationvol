@@ -74,8 +74,7 @@ public class AeroportController {
 	}
 	
 	@RequestMapping(path="update", method = RequestMethod.POST)
-	public ModelAndView updateAeroport(Model model,@RequestParam String nom,
-									@RequestParam String ville ) {
+	public ModelAndView updateAeroport(Model model,@RequestParam String nom, @RequestParam String ville ) {
 	    try {
 	    	System.out.println("avant modification");
 		    Aeroport a= new Aeroport(1,nom, ville, false);
@@ -87,7 +86,6 @@ public class AeroportController {
 					  listes.add(aeroport);  
 				 }
 			  }
-			    
 			  model.addAttribute("listeAeroport",listes);
 			  return new ModelAndView("aeroport");
 		} catch (Exception e) {

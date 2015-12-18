@@ -5,14 +5,11 @@
 <layout:extends name="base">
 	<layout:put block="contents">
 		<section class="content-header">
-			<h1>
-				Data Tables <small>advanced tables</small>
-			</h1>
-			<ol class="breadcrumb">
-				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-				<li><a href="#">Tables</a></li>
-				<li class="active">Data tables</li>
-			</ol>
+			<h1><b>Liste des assurances</b></h1>
+           		<ol class="breadcrumb">
+          			<li><a href="login.jsp"><i class="fa fa-dashboard"></i> Admin</a></li>
+             		<li class="active"><a href="#">Assurance</a></li>
+           		</ol>
 		</section>
 
 		<!-- Main content -->
@@ -21,9 +18,13 @@
 				<div class="col-xs-12">
 					<div class="box">
 						<div class="box-header">
-							<h3 class="box-title">Liste des assurances</h3>
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">ADD</button>
-							<div class="modal fade" id="exampleModal" tabindex="-1"
+							<div class="row">
+                            	<div class="col-md-1 col-md-offset-11">
+                                	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap" style="/* text-align: right; */">
+                               		<span class="glyphicon glyphicon-plus-sign"></span>ADD</button>
+                           		</div>
+                          	</div>
+                          	<div class="modal fade" id="exampleModal" tabindex="-1"
 								role="dialog" aria-labelledby="exampleModalLabel">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
@@ -53,7 +54,7 @@
 						<div class="box-body">
 							<v:choose>
 								<v:when test="${not empty listeAssurance}">
-									<table id="example2" class="table table-bordered table-hover">
+									<table id="mondatatable" class="table table-bordered table-hover">
 										<thead>
 											<tr>
 												<th>Type Assurance</th>
@@ -66,9 +67,11 @@
 												<tr>
 													<td>${o.type}</td>
 													<td>${o.tarif}</td>
-													<td><a href="assurance/delete.htm?id=${o.id}">supprimer</a>
-														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${o.id}" data-whatever="@getbootstrap">Modifier</button>
-														<div class="modal fade" id="${o.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+													<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${o.id}" data-whatever="@getbootstrap">
+															<span class="glyphicon glyphicon-pencil"></span></button>
+                                                     	<a href="assurance/delete.htm?id=${o.id}" class="btn btn-primary">
+                                                     		<span class="glyphicon glyphicon-trash"></span></a>
+                                                     	<div class="modal fade" id="${o.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 															<div class="modal-dialog" role="document">
 																<div class="modal-content">
 																	<div class="modal-header">
@@ -80,8 +83,8 @@
 																	<div class="modal-body">
 																		<form method="POST" action="assurance/update.htm?id=${o.id}">
 																			<div class="form-group">
-																				<label for="recipient-name" class="control-label">Type Assurance:</label> <input type="text" class="form-control" id="exampleInputEmail1" name="type" value="${o.type}">
-																				<!--<input type="text" class="form-control" name="type" placeholder="hhhhh">-->
+																				<label for="recipient-name" class="control-label">Type Assurance:</label> 
+																				<input type="text" class="form-control" id="exampleInputEmail1" name="type" value="${o.type}">
 																			</div>
 																			<div class="form-group">
 																				<label for="message-text" class="control-label">Tarif:</label>

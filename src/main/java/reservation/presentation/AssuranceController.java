@@ -105,9 +105,6 @@ public class AssuranceController {
 	public ModelAndView deleteAssurance(Model model,@RequestParam int id) {
 	    try {
 	    	service.delete(id);
-		   // Assurance a=service.getAssuranceById(id);
-		    //boolean b =a.isDeleted();
-		  // System.out.println(b);
 	    	ArrayList<Assurance> listes = new ArrayList<>();
 		  for(Assurance assurance:service.list()){
 			  if(!assurance.isDeleted()){
