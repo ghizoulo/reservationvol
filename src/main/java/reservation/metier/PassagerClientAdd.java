@@ -1,9 +1,9 @@
-package reservation.validators;
+package reservation.metier;
 
 import javax.validation.constraints.NotNull;
 
 
-public class PassagerClient {
+public class PassagerClientAdd {
 		@NotNull
 	    private String nomP;
 		@NotNull

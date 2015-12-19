@@ -66,11 +66,16 @@ public class PaiementController {
 					}
 			//ajouter les info a la reservation du depart
 					Reservation reservationDepart = serviceReservation.getReservationById(idReservationDepart);
+					
 						//ajouter assurance à la reservation
 					Assurance assuranceReservation=serviceAssurance.getAssuranceById(idAssurance);
+					int prixAssurance=assuranceReservation.getTarif();
 					reservationDepart.setAssurance(assuranceReservation);
+					reservationDepart.setQuantite_bagage(baggage);
+					
 						//créer siege
 					Siege siege= new Siege();
+					
 					//fenetre siege
 					boolean fenetr=false;
 					if(fenetre.equals("true"))
@@ -78,30 +83,44 @@ public class PaiementController {
 						 fenetr= true;
 					}
 					siege.setCote_fenetre(fenetr);
+					
 					//position siege
 					PositionSiege posi=PositionSiege.valueOf(position);
 					System.out.println(posi);
 					siege.setPosition(posi);
+					
 					//rang siege
 					RangSiege ran=RangSiege.valueOf(rang);
 					siege.setRang(ran);
 					serviceSiege.add(siege); //ajout du siege à la bd
+					
 					//siege pret pr etre ajouté sur reservation
 					reservationDepart.setSiege(siege);
+					
 					//enregistrer le tt 
 					serviceReservation.update(reservationDepart);
+					int prixDepart=(int) session.getAttribute("prixDepart");
+					int prixRetour=(int) session.getAttribute("prixRetour");
+					int prix_total=prixDepart+prixRetour;
+					System.out.println("prix total avant ajout des frais"+prix_total);
 					
 			//ajouter les info à la reservation du retour
 					if(session.getAttribute("idReservationRetour").equals("false"))
 					{
-						System.out.println("Pas de retour");
+						prix_total+=baggage+prixAssurance; //si pas de retour , on ajoute les frais de l'assurance et du baggage
+						System.out.println("pas de retour");
+						session.setAttribute("prix_total", prix_total);
 					}
 					else {
 						idReservationRetour= (int) session.getAttribute("idReservationRetour");
 						Reservation reservationRetour = serviceReservation.getReservationById(idReservationRetour);
 						reservationRetour.setAssurance(assuranceReservation);
 						reservationRetour.setSiege(siege);
+						reservationRetour.setQuantite_bagage(baggage);
 						serviceReservation.update(reservationRetour);
+						prix_total+=baggage*2+prixAssurance*2; //si avec retour on ajoute le tout deux fois
+						System.out.println(" prix après ajout des frais "+prix_total);
+						session.setAttribute("prix_total", prix_total);
 					}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

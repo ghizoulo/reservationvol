@@ -22,11 +22,12 @@ import reservation.metier.ClientManager;
 import reservation.metier.PassagerManager;
 import reservation.metier.ReservationManager;
 import reservation.metier.VolManager;
+import reservation.metier.PassagerClientAdd;
 import reservation.model.Assurance;
 import reservation.model.Client;
 import reservation.model.Passager;
 import reservation.model.Reservation;
-import reservation.validators.PassagerClient;
+
 @Controller
 public class InfoPassagerController {
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -42,7 +43,7 @@ public class InfoPassagerController {
 	@Autowired
 	AssuranceManager serviceAssurance;
 	@RequestMapping(path = "paiement", method = RequestMethod.POST)
-	public ModelAndView creerReservation(@Valid PassagerClient passagerClient, BindingResult result,Model model,HttpSession session) {
+	public ModelAndView creerReservation(@Valid PassagerClientAdd passagerClient, BindingResult result,Model model,HttpSession session) {
 		if (result.hasErrors()) {
 			return new ModelAndView("infoPassager");
         }
