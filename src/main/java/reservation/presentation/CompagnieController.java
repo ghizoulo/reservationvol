@@ -94,10 +94,8 @@ protected final Log logger = LogFactory.getLog(getClass());
 			  for(Compagnie compagnie:service.list()){
 				  if(!compagnie.isDeleted()){
 					  listes.add(compagnie);
-					  
 				  }
 			  }
-			    
 			  model.addAttribute("listeCompagnie",listes);
 		    return new ModelAndView("compagnie");
 		} catch (Exception e) {
@@ -112,9 +110,6 @@ protected final Log logger = LogFactory.getLog(getClass());
 	public ModelAndView deleteCompagnie(Model model,@RequestParam int id) {
 	    try {
 	    	service.delete(id);
-		   // Assurance a=service.getAssuranceById(id);
-		    //boolean b =a.isDeleted();
-		  // System.out.println(b);
 	    	ArrayList<Compagnie> listes = new ArrayList<>();
 			  for(Compagnie compagnie:service.list()){
 				  if(!compagnie.isDeleted()){

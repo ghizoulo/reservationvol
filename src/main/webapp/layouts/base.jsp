@@ -380,12 +380,17 @@
 		<script src="/ReservationVol/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 		<!-- FastClick -->
 		<script src="/ReservationVol/assets/plugins/fastclick/fastclick.min.js"></script>
+		<!-- DataTables -->
+    	<script src="/ReservationVol/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    	<script src="/ReservationVol/assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
 		<!-- AdminLTE App -->
 		<script src="/ReservationVol/assets/dist/js/app.min.js"></script>
 		<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 		<script src="/ReservationVol/assets/dist/js/pages/dashboard.js"></script>
 		<!-- AdminLTE for demo purposes -->
 		<script src="/ReservationVol/assets/dist/js/demo.js"></script>
+		<!-- my script -->
+		<script src="/ReservationVol/assets/script.js"></script>
 
 		</body>
 </html>
