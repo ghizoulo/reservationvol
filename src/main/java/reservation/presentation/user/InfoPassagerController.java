@@ -1,6 +1,7 @@
 package reservation.presentation.user;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import reservation.metier.AssuranceManager;
 import reservation.metier.ClientManager;
 import reservation.metier.PassagerManager;
 import reservation.metier.ReservationManager;
 import reservation.metier.VolManager;
+import reservation.model.Assurance;
 import reservation.model.Client;
 import reservation.model.Passager;
 import reservation.model.Reservation;
@@ -36,9 +39,10 @@ public class InfoPassagerController {
 	VolManager serviceVol;
 	@Autowired
 	ReservationManager serviceReservation;
-	
-	@RequestMapping(path = "infoPassager", method = RequestMethod.POST)
-	public ModelAndView deleteVol(@Valid PassagerClient passagerClient, BindingResult result,Model model,HttpSession session) {
+	@Autowired
+	AssuranceManager serviceAssurance;
+	@RequestMapping(path = "paiement", method = RequestMethod.POST)
+	public ModelAndView creerReservation(@Valid PassagerClient passagerClient, BindingResult result,Model model,HttpSession session) {
 		if (result.hasErrors()) {
 			return new ModelAndView("infoPassager");
         }
@@ -75,15 +79,18 @@ public class InfoPassagerController {
 			serviceClient.add(client);
 			
 			//new reservation
+			int numReservR = (int)(Math.random() * (higher+1-lower)) + lower; 
 			Reservation reservationDepart= new Reservation();
 			reservationDepart.setDate(dateToday); 	//date de la reservation
 			reservationDepart.setClient(serviceClient.getClientById(client.getId())); 			//client de la reservation
 			reservationDepart.setPassager(servicePassager.getPassagerById(passager.getId())); 	//passager de la resrevation	
 			int idVolDepart= (int) session.getAttribute("idVolDepart");							
 			int idVolRetour= (int) session.getAttribute("idVolRetour");
-			reservationDepart.setNumero(numReserv);
+			reservationDepart.setNumero(numReservR);
 			reservationDepart.setVol(serviceVol.getVolById(idVolDepart));						//vol de l resrevation
 			serviceReservation.add(reservationDepart);
+System.out.println(reservationDepart.getId());
+			session.setAttribute("idReservationDepart",reservationDepart.getId());
 			
 			//si u vol de reservation est choisi on va remplir une reservation de retour vc les mm num reservation et mm client et passager
 			if(idVolRetour!=0)
@@ -96,14 +103,40 @@ public class InfoPassagerController {
 				reservationRetour.setNumero(numReserv);
 				reservationRetour.setVol(serviceVol.getVolById(idVolRetour));						//vol de la resrevation
 				serviceReservation.add(reservationRetour);
+				session.setAttribute("idReservationRetour",reservationRetour.getId());
 			}
-			
-			return new ModelAndView("Paiement");
-		}
-		
+			else {
+				session.setAttribute("idReservationRetour","false");
+			}
+			//lister les reservation pr remplir la page suivante
+			ArrayList<Assurance> ListAssurancesMort = new ArrayList<>();
+			ArrayList<Assurance> ListAssurancesAccident = new ArrayList<>();
+			ArrayList<Assurance> ListAssuranceMalade = new ArrayList<>();
+			System.out.println("ici paiement controller");
+				for(Assurance assurance : serviceAssurance.list() )
+				{
+					if(assurance.getType().toString().equals("AssuranceMort"))
+					{
+						ListAssurancesMort.add(assurance);
+					}
+					if(assurance.getType().toString().equals("AssuranceAccident"))
+					{
+						ListAssurancesAccident.add(assurance);
+					}
+					if(assurance.getType().toString().equals("AssuranceMalade"))
+					{
+						ListAssuranceMalade.add(assurance);
+					}
+				}
+				model.addAttribute("ListAssurancesMalade", ListAssuranceMalade);
+				model.addAttribute("ListAssurancesAccident", ListAssurancesAccident);
+				model.addAttribute("ListAssurancesMort", ListAssurancesMort);
+				
+		}	
 		catch(Exception e){
-			
+			e.printStackTrace();
+			logger.info("erreeeeu");
 		}
-		return new ModelAndView("Paiement");
+		return new ModelAndView("paiement");
 	}
 }

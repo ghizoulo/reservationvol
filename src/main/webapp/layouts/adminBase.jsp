@@ -10,7 +10,7 @@
 			<link rel="stylesheet" href="/ReservationVol/assets/userAssets/css/style.css" type="text/css" media="all">
 			<link rel="stylesheet" href="/ReservationVol/assets/userAssets/css/myLogin.css" type="text/css" media="all">
 			<link rel="stylesheet" href="/ReservationVol/assets/userAssets/css/bootstrap.min.css" type="text/css" >
-			
+			<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 			<script type="text/javascript" src="/ReservationVol/assets/userAssets/js/jquery-1.5.2.js" ></script>
 			<script type="text/javascript" src="/ReservationVol/assets/userAssets/js/cufon-yui.js"></script>
 			<script type="text/javascript" src="/ReservationVol/assets/userAssets/js/cufon-replace.js"></script>

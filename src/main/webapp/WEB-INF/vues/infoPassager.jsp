@@ -59,7 +59,7 @@
       	<h5>Index > Liste des Voles > Informations personnelles</h5>
       	<div class="bootstrap">
       		<h3>Coordonnées & Informations </h3>
-      		<form:form  action="infoPassager.htm" method="POST" commandName="passagerClient">
+      		<form:form  action="paiement.htm" method="POST" commandName="passagerClient">
 				 <div class="panel panel-default" style="width:45%; display:inline-block">
 					  <div class="panel-heading"><B style="color: DodgerBlue;">Client</B></div>
 					  <div class="panel-body">

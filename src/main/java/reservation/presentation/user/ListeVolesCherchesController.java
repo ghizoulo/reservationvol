@@ -36,7 +36,7 @@ public class ListeVolesCherchesController {
 	@Autowired
 	ClasseManager serviceClasse;
 	
-	@RequestMapping(path = "listeVolesCherchers", method = RequestMethod.POST)
+	@RequestMapping(path = "InfoPassager", method = RequestMethod.POST)
 	public ModelAndView sommePrix(Model model,HttpSession session, @RequestParam int idVolDepart, @RequestParam int idVolRetour) {
 				
 				session.setAttribute("idVolDepart", idVolDepart);

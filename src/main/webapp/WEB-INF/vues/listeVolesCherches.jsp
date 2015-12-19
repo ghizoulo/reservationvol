@@ -56,7 +56,7 @@
         <div class="bootstrap">
           <v:if test="${not empty listeClassesDepart}">
           <p>Choisissez les voles qui vous conviennent...</p>
-          <form action="listeVolesCherchers.htm" method="POST">
+          <form action="InfoPassager.htm" method="POST">
           	<h4>Voles du Départ</h4>
               <table class="table table-striped">
                     <thead> 
