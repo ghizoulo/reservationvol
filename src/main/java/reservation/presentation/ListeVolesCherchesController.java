@@ -1,4 +1,4 @@
-package reservation.presentation.user;
+package reservation.presentation;
 
 import javax.servlet.http.HttpSession;
 

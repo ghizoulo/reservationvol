@@ -1,4 +1,4 @@
-package reservation.presentation.user;
+package reservation.presentation;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

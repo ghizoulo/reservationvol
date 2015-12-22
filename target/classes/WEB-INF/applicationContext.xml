@@ -65,6 +65,7 @@
        <property name="sessionFactory" ref="sf"/>
     </bean> 
 	<mvc:resources mapping="/assets/**" location="/assets/" cache-period="31556926"/>
+	<mvc:resources mapping="/images/**" location="/images/" cache-period="31556926"/>
 	
 	<mvc:annotation-driven/>
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -72,5 +73,18 @@
         <property name="prefix" value="/WEB-INF/vues/"></property>
         <property name="suffix" value=".jsp"></property>
     </bean>
+    
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/welcome.htm"/>
+            <mvc:mapping path="/vol/*"/>
+            <bean class="reservation.security.SessionInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/user/*"/>
+            <bean class="reservation.security.SecurityInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
     
 </beans>
