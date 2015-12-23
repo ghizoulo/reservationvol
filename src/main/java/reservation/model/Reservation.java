@@ -22,6 +22,7 @@ public class Reservation {
 	private boolean confirm = false;
 	private int quantite_bagage;
 	private boolean deleted = false;
+	private int prix;
 	private Client client;
 	private Passager passager;
 	private Vol vol;
@@ -181,6 +182,15 @@ public class Reservation {
 
 	public void setPlat(TypePlat plat) {
 		this.plat = plat;
+	}
+
+	@Column(name = "PRIX", nullable = true)
+	public int getPrix() {
+		return prix;
+	}
+
+	public void setPrix(int prix) {
+		this.prix = prix;
 	}
 	
 }

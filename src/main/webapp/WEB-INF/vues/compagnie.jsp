@@ -53,16 +53,16 @@
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-							<div class="row">
-								<v:forEach items="${listeCompagnie}" var="elt">
-									<div class="col-lg-6">
-										<img alt="${elt.nom}" src="../images/images.jpg" height="60" width="60" />
-										<div>
-											<h3>${elt.nom}</h3>
-										</div>
-									</div>
-								</v:forEach>
-							</div>
+<!-- 							<div class="row"> -->
+<%-- 								<v:forEach items="${listeCompagnie}" var="elt"> --%>
+<!-- 									<div class="col-lg-6"> -->
+<%-- 										<img alt="${elt.nom}" src="../images/images.jpg" height="60" width="60" /> --%>
+<!-- 										<div> -->
+<%-- 											<h3>${elt.nom}</h3> --%>
+<!-- 										</div> -->
+<!-- 									</div> -->
+<%-- 								</v:forEach> --%>
+<!-- 							</div> -->
 							<v:choose>
 								<v:when test="${not empty listeCompagnie}">
 									<table id="mondatatable" class="table table-bordered table-hover">
@@ -76,7 +76,7 @@
 										<tbody>
 											<v:forEach items="${listeCompagnie}" var="o">
 												<tr>
-													<td><img alt="${o.nom}" src="${o.photoName}"></td>
+													<td><img alt="${o.nom}" src="/ReservationVol/images/${o.photoName}" height="60" width="60" >
 													<td>${o.nom}</td>
 													<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${o.id}" data-whatever="@getbootstrap">
 															<span class="glyphicon glyphicon-pencil"></span></button>

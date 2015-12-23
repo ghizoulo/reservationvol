@@ -69,6 +69,13 @@ protected final Log logger = LogFactory.getLog(getClass());
 	 * @param compagnie
 	 * @return
 	 */
+	
+	@RequestMapping(path="dashboard.htm", method= RequestMethod.GET)
+    public ModelAndView showWelcome(){
+        logger.info("WelcomeController: returning welcome view");
+        return new ModelAndView("dashboard");
+    }
+	
 	@RequestMapping(path = "chercherSimple",method = RequestMethod.POST)
 	public ModelAndView chercherVolAlleeSimple(Model model,HttpSession session, 
 													@RequestParam int idAeroportDepart, 

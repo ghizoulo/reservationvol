@@ -120,31 +120,64 @@
 															<span class="glyphicon glyphicon-pencil"></span></button>
                             							<a href="aeroport/delete.htm?id=${o.id}" class="btn btn-primary">
                             								<span class="glyphicon glyphicon-trash"></span></a>
-<%-- 														<div class="modal fade" id="${o.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"> --%>
-<!-- 															<div class="modal-dialog" role="document"> -->
-<!-- 																<div class="modal-content"> -->
-<!-- 																	<div class="modal-header"> -->
-<!-- 																		<button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-<!-- 																			<span aria-hidden="true">&times;</span> -->
-<!-- 																		</button> -->
-<!-- 																		<h4 class="modal-title" id="exampleModalLabel">Modifier un aeroport</h4> -->
-<!-- 																	</div> -->
-<!-- 																	<div class="modal-body"> -->
-<%-- 																		<form method="POST" action="aeroport/update.htm?id=${o.id}"> --%>
-<!-- 																			<div class="form-group"> -->
-<!-- 																				<label for="recipient-name" class="control-label">Nom aeroport:</label>  -->
-<%-- 																				<input type="text" class="form-control"  name="nom" value="${o.nom}"/> --%>
-<!-- 																			</div> -->
-<!-- 																			<div class="form-group"> -->
-<!-- 																				<label for="message-text" class="control-label">Ville aeroport:</label>  -->
-<%-- 																				<input type="text" class="form-control" name="ville" value="${o.ville}"/> --%>
-<!-- 																			</div> -->
-<!-- 																			<input type="submit" class="btn btn-primary" value="Enregistrer"/> -->
-<!-- 																		</form> -->
-<!-- 																	</div> -->
-<!-- 																</div> -->
-<!-- 															</div> -->
-<!-- 														</div></td> -->
+															<div class="modal fade" id="${o.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+																<div class="modal-dialog" role="document">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<button type="button" class="close" data-dismiss="modal"
+																				aria-label="Close">
+																				<span aria-hidden="true">&times;</span>
+																			</button>
+																			<h4 class="modal-title" id="exampleModalLabel">Modifier un utilisateur</h4>
+																		</div>
+																		<div class="modal-body">
+																			<form:form method="post" action="user/add.htm" commandName="useradd" >
+																			    <div class="form-group"> 
+																			        <form:label path="firstName" class="control-label">Prénom : </form:label>
+																			        <form:input path="firstName" class="form-control"/> 
+																			        <form:errors path="firstName"/>
+																			    </div>
+																			    <div class="form-group"> 
+																			        <form:label path="lastName" class="control-label">Nom : </form:label>
+																			        <form:input path="lastName" class="form-control"/> 
+																			         <form:errors path="lastName"/>
+																			    </div>
+																			    <div class="form-group"> 
+																			        <form:label path="email" class="control-label">Email : </form:label>
+																			        <form:input path="email" class="form-control"/>
+																			        <form:errors path="email"/> 
+																			    </div>
+																			    <div class="form-group"> 
+																			        <form:label path="telephone" class="control-label">Téléphone : </form:label>
+																			        <form:input path="telephone" class="form-control"/> 
+																			        <form:errors path="telephone"/>
+																			    </div>
+																			    <div class="form-group"> 
+																			        <form:label path="address" class="control-label">Adresse : </form:label>
+																			        <form:input path="address" class="form-control"/>
+																			        <form:errors path="address"/>
+																			    </div>
+																			    <div class="form-group"> 
+																			        <form:label path="login" class="control-label">Login : </form:label>
+																			        <form:input path="login" class="form-control"/> 
+																			        <form:errors path="login"/>
+																			    </div>
+																			    <div class="form-group"> 
+																			        <form:label path="password" class="control-label">Password : </form:label>
+																			        <form:password path="password" class="form-control"/>
+																			        <form:errors path="password"/>
+																			    </div>
+																			    <div class="form-group"> 
+																			        <form:label path="role" class="control-label">Role : </form:label>
+																			        <form:select path="role" items="${userRoles}" class="form-control"/>
+																			        <form:errors path="role"/>
+																			    </div>
+																			    <input type="submit" class="btn btn-primary" value="Enregistrer">
+																			</form:form>
+																		</div>
+																	</div>
+																</div>
+															</div>
 												</tr>
 											</v:forEach>
 										</tbody>

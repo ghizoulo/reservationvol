@@ -78,7 +78,7 @@
     
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/welcome.htm"/>
+            <mvc:mapping path="/dashboard.htm"/>
             <mvc:mapping path="/aeroport/*"/>
             <mvc:mapping path="/assurance/*"/>
             <mvc:mapping path="/compagnie/*"/>

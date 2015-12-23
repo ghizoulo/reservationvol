@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sendgrid.SendGrid;
+import com.sendgrid.SendGridException;
+
 import reservation.metier.AssuranceManager;
 import reservation.metier.ReservationManager;
 import reservation.metier.SiegeManager;
@@ -134,7 +137,27 @@ public class PaiementController {
 		System.out.println("fenetre "+fenetre);
 		System.out.println("position "+position);
 		System.out.println("assurance name"+assurance);
+		send_mail((String)session.getAttribute("emailClient"));
 		return new ModelAndView("validation");
 
+	}
+	
+	public void send_mail(String emailClient){
+		SendGrid sendgrid = new SendGrid("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");
+		
+		SendGrid.Email email = new SendGrid.Email();
+
+	    email.addTo("ghizlanelotfi@gmail.com");
+	    email.setFrom(emailClient);
+	    email.setSubject("Merci pour votre réservation de vol");
+	    email.setHtml("and easy to do anywhere, even with Java");
+		
+		try {
+			sendgrid.send(email);
+			System.out.println("success");
+		} catch (SendGridException e) {
+			System.out.println("echec");
+			e.printStackTrace();
+		}
 	}
 }

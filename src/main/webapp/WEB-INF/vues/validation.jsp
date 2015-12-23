@@ -45,7 +45,7 @@
 	                			</tr> 
 	                			<tr> 
 	                				<td>Prix Total</td> 	
-	                				<td><v:out value="${sessionScope.prixDepart+sessionScope.prixRetour+sessionScope.}" /></td> 	
+	                				<td><v:out value="${sessionScope.prixDepart+sessionScope.prixRetour}" /></td> 	
 	                			</tr> 
 	                		</tbody> 
 	                	</table> 

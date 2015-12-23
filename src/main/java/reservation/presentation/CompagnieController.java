@@ -70,7 +70,7 @@ protected final Log logger = LogFactory.getLog(getClass());
 		                for(FileItem item : multiparts){
 		                    if(!item.isFormField()){
 		                        name = new File(item.getName()).getName();
-		                        item.write( new File(UPLOAD_DIRECTORY+"/src/main/webapp/WEB-INF/images" + File.separator + name));
+		                        item.write( new File(UPLOAD_DIRECTORY+"/src/main/webapp/images" + File.separator + name));
 		                    }else{
 		                    	String fieldName = item.getFieldName();
 		                        nom = item.getString();
@@ -106,7 +106,7 @@ protected final Log logger = LogFactory.getLog(getClass());
 		}
 		return null;
 	}
-	@RequestMapping(path="update", method = RequestMethod.POST)
+	@RequestMapping(path="/compagnie/update.htm", method = RequestMethod.POST)
 	public ModelAndView updateCompagnie(Model model,@RequestParam int id,@RequestParam String nom) {
 	    try {
 	    	System.out.println("avant modification");
@@ -121,7 +121,7 @@ protected final Log logger = LogFactory.getLog(getClass());
 			  }
 			    
 			  model.addAttribute("listeCompagnie",listes);
-			  return new ModelAndView("compagnie");
+			  return new ModelAndView(new RedirectView("/compagnie.htm", true));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

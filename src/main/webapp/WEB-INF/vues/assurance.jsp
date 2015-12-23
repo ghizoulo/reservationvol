@@ -37,15 +37,20 @@
 										</div>
 										<div class="modal-body">
 											<form method="POST" action="assurance/add.htm">
-												<div class="form-group">
-													<label for="recipient-name" class="control-label">Type Assurance:</label> <input type="text" class="form-control" name="type">
-												</div>
-												<div class="form-group">
-													<label for="message-text" class="control-label">Tarif:</label>
-													<input type="text" class="form-control" name="tarif">
-												</div>
-												<input type="submit" class="btn btn-primary" value="Enregistrer">
-											</form>
+                                   				<div class="form-group">
+                                             		<label class="control-label">Type Assurance:</label>
+                                                  	<select class="form-control" name="type">
+                                                     	<option value="AssuranceMort">Assurance Mort</option>
+                                                  		<option value="AssuranceAccident">Assurance Accident</option>
+                                                    	<option value="AssuranceMalade${ae.id}">Assurance Malade</option>
+                                                 	</select>
+                                             	</div>
+                                           		<div class="form-group">
+                                                	<label for="message-text" class="control-label">Tarif:</label>
+                                               		<input type="text" class="form-control" name="tarif">
+                                            	</div>
+                                           		<input type="submit" class="btn btn-primary" value="Enregistrer">
+                                     		</form>
 										</div>
 									</div>
 								</div>
@@ -83,16 +88,20 @@
 																	</div>
 																	<div class="modal-body">
 																		<form method="POST" action="assurance/update.htm?id=${o.id}">
-																			<div class="form-group">
-																				<label for="recipient-name" class="control-label">Type Assurance:</label> 
-																				<input type="text" class="form-control" id="exampleInputEmail1" name="type" value="${o.type}">
-																			</div>
-																			<div class="form-group">
-																				<label for="message-text" class="control-label">Tarif:</label>
-																				<input type="text" class="form-control" name="tarif" value="${o.tarif}">
-																			</div>
-																			<input type="submit" class="btn btn-primary" value="Enregistrer">
-																		</form>
+                                                                      		<div class="form-group">
+                                                                            	<label class="control-label">Type Assurance:</label>
+                                                                                	<select class="form-control" name="type">
+                                                                                  		<option value="AssuranceMort">Assurance Mort</option>
+                                                                                    	<option value="AssuranceAccident">Assurance Accident</option>
+                                                                                  		<option value="AssuranceMalade${ae.id}">Assurance Malade</option>
+                                                                                 	</select>
+                                                                         	</div>
+                                                                          	<div class="form-group">
+                                                                             	<label for="message-text" class="control-label">Tarif:</label>
+                                                                          		<input type="text" class="form-control" name="tarif" value="${o.tarif}">
+                                                                          	</div>
+                                                                       		<input type="submit" class="btn btn-primary" value="Enregistrer">
+                                                                    	</form>
 																	</div>
 																</div>
 															</div>

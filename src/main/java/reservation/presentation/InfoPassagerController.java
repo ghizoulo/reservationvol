@@ -78,6 +78,8 @@ public class InfoPassagerController {
 			client.setMail(passagerClient.getMailC());
 			client.setTelephone(passagerClient.getTelephoneC());
 			serviceClient.add(client);
+			//set email to attribute session
+			session.setAttribute("emailClient", passagerClient.getMailC());
 			
 			//new reservation
 			int numReservR = (int)(Math.random() * (higher+1-lower)) + lower; 

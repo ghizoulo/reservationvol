@@ -44,7 +44,7 @@ public class VolController {
 	@Autowired
 	ClasseManager serviceClasse;
 
-	@RequestMapping(path = "/vol/add", method = RequestMethod.POST)
+	@RequestMapping(path = "/vol/add.htm", method = RequestMethod.POST)
 	public ModelAndView addVol(Model model, @RequestParam String dateDepart, @RequestParam String dateArrivee,
 			@RequestParam String heureDepart, @RequestParam String heureArrivee, @RequestParam int aeroportDepartid,
 			@RequestParam int aeroportArriveeid, @RequestParam int compagnieid, @RequestParam boolean open,
@@ -102,7 +102,7 @@ public class VolController {
 			}
 
 			model.addAttribute("listeVol", listes);
-			return new ModelAndView("vol");
+			return new ModelAndView(new RedirectView("/vol.htm", true));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -156,7 +156,7 @@ public class VolController {
 			}
 
 			model.addAttribute("listeVol", listes);
-			return new ModelAndView("vol");
+			return new ModelAndView(new RedirectView("/vol.htm", true));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -227,7 +227,7 @@ public class VolController {
 		}
 		return null;
 	}
-	@RequestMapping(path = "ListForm", method = RequestMethod.POST)
+	@RequestMapping(path = "/vol/ListForm.htm", method = RequestMethod.POST)
 	public ModelAndView listInForm(Model model) throws Exception {
 		
 		System.out.println("focntion list form");
@@ -291,7 +291,7 @@ public class VolController {
 			}
 		}
 	}
-	@RequestMapping(path = "updateForm", method = RequestMethod.GET)
+	@RequestMapping(path = "/vol/updateForm.htm", method = RequestMethod.GET)
 	public ModelAndView updateForm(Model model, @RequestParam int id) throws Exception {
 		
 		System.out.println("focntion update form");
@@ -359,22 +359,6 @@ public class VolController {
 								model.addAttribute("idClasse4", classetest.getId());
 							}
 						}
-//						if(classe.getNomClasse().toString()=="Economique"){
-//							model.addAttribute("Classe1", classe.getPrix());
-//							System.out.println(classe.getPrix());
-//						}
-////						if(classe.getNomClasse().toString()=="Premium"){
-////							model.addAttribute("Classe2", classe);
-////							System.out.println(classe.getPrix());
-////						}
-////						if(classe.getNomClasse().toString()=="Affaire"){
-////							model.addAttribute("Classe3", classe);
-////							System.out.println(classe.getPrix());
-////						}
-////						if(classe.getNomClasse().toString()=="Premiere"){
-////							model.addAttribute("Classe4", classe);
-////							System.out.println(classe.getPrix());
-////						}
 						model.addAttribute("dateDepart",formatter.format(v.getDateDepart().getTime()));
 						model.addAttribute("dateArrivee",formatter.format(v.getDateArrivee().getTime()));
 						model.addAttribute("heureDepart",formatter1.format(v.getHeureDepart().getTime()));
