@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import reservation.metier.AeroportManager;
 import reservation.metier.ClasseManager;
@@ -27,7 +28,7 @@ import reservation.model.TypeClasse;
 import reservation.model.Vol;
 
 @Controller
-@RequestMapping(value = "/vol")
+//@RequestMapping(value = "/vol")
 public class VolController {
 
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -111,7 +112,7 @@ public class VolController {
 		return null;
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(path = "/vol.htm",method = RequestMethod.GET)
 	public ModelAndView listVol(Model model) throws Exception {
 		
 		//on teste si la liste des vols est vide si oui
@@ -238,7 +239,7 @@ public class VolController {
 	}
 	
 
-	@RequestMapping(path = "delete", method = RequestMethod.GET)
+	@RequestMapping(path = "/vol/delete.htm", method = RequestMethod.GET)
 	public ModelAndView deleteVol(Model model, @RequestParam int id) {
 		try {
 			serviceVol.delete(id);
@@ -252,7 +253,7 @@ public class VolController {
 			}
 
 			model.addAttribute("listeVol", listes);
-			return new ModelAndView("vol");
+			return new ModelAndView(new RedirectView("/vol.htm", true));
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

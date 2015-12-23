@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,18 +25,20 @@ import reservation.metier.user.UserUpdate;
 import reservation.model.User;
 
 @Controller
-@RequestMapping("/user")
+//@RequestMapping("/user")
 public class UserManagementController {
 
+	protected final Log logger = LogFactory.getLog(getClass());
+	
     @Autowired
     private UserManager userManager;
 
-    @RequestMapping(value = "usermanagement.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/user.htm", method = RequestMethod.GET)
     public ModelAndView manageUsers() {
-        return new ModelAndView("usermanagement");
+        return new ModelAndView("user");
     }
     
-    @RequestMapping(value = "useradd.htm", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/add.htm", method = RequestMethod.POST)
     public ModelAndView addUser(
             HttpServletRequest request, @ModelAttribute("useradd") @Valid UserAdd userAdd,
             BindingResult result) {
@@ -42,19 +46,17 @@ public class UserManagementController {
         if (result.hasErrors()) {
             return manageUsers();
         }
-        
         User user = userAdd.getUser();
-
         try {
             userManager.add(user);
-            return new ModelAndView(new RedirectView("/user/usermanagement.htm", true));
+            return new ModelAndView(new RedirectView("/user.htm", true));
         } catch (Exception e) {
             result.rejectValue("login", "error.user.update");
             return manageUsers();
         }
     }
 
-    @RequestMapping(value = "userupdate.htm", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/update.htm", method = RequestMethod.POST)
     public ModelAndView updateUser(
             HttpServletRequest request, @ModelAttribute("userupdate") @Valid UserUpdate userUpdate,
             BindingResult result) {
@@ -70,23 +72,23 @@ public class UserManagementController {
 
         try {
             userManager.update(user);
-            return new ModelAndView(new RedirectView("/user/usermanagement.htm", true));
+            return new ModelAndView(new RedirectView("/user.htm", true));
         } catch (Exception e) {
             result.rejectValue("login", "error.user.update");
             return manageUsers();
         }
     }
 
-    @RequestMapping(value = "userdelete.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/delete.htm", method = RequestMethod.GET)
     public ModelAndView deleteUser(HttpServletRequest request) {
 
         User user = new User();
         user.setId(Integer.parseInt(request.getParameter("id")));
         userManager.delete(user);
-        return new ModelAndView(new RedirectView("/user/usermanagement.htm", true));
+        return new ModelAndView(new RedirectView("/user.htm", true));
     }
 
-    @RequestMapping(value = "userfind.htm", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/find.htm", method = RequestMethod.POST)
     public ModelAndView findUsers(
             HttpServletRequest request, @ModelAttribute("userfind") @Valid UserFind userFind,
             BindingResult result) throws Exception {

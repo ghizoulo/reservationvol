@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import reservation.metier.AssuranceManager;
 import reservation.model.Assurance;
@@ -18,7 +19,7 @@ import reservation.model.TypeAssurance;
 
 
 @Controller
-@RequestMapping(value="/assurance")
+//@RequestMapping(value="/assurance")
 public class AssuranceController {
 	
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -26,7 +27,7 @@ public class AssuranceController {
 	@Autowired
 	AssuranceManager service;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(path="/assurance.htm", method = RequestMethod.GET)
 	public ModelAndView listAssurance(Model model) throws Exception {
 		if(service.list().isEmpty()){
 			System.out.println("is empty");
@@ -52,7 +53,7 @@ public class AssuranceController {
 		return null; 
 	}
 	
-	@RequestMapping(path="add", method = RequestMethod.POST)
+	@RequestMapping(path="/assurance/add.htm", method = RequestMethod.POST)
 	public ModelAndView addAssurance(Model model,@RequestParam TypeAssurance type,
 									@RequestParam int tarif ) {
 	    try {
@@ -67,7 +68,7 @@ public class AssuranceController {
 			  }
 			    
 			  model.addAttribute("listeAssurance",listes);
-			  return new ModelAndView("assurance");
+			  return new ModelAndView(new RedirectView("/assurance.htm", true));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,7 +77,7 @@ public class AssuranceController {
 		return null;
 	}
 	
-	@RequestMapping(path="update", method = RequestMethod.POST)
+	@RequestMapping(path="/assurance/update.htm", method = RequestMethod.POST)
 	public ModelAndView updateAssurance(Model model,@RequestParam int id,@RequestParam TypeAssurance type,
 									@RequestParam int tarif ) {
 	    try {
@@ -92,7 +93,7 @@ public class AssuranceController {
 			  }
 			    
 			  model.addAttribute("listeAssurance",listes);
-			  return new ModelAndView("assurance");
+			  return new ModelAndView(new RedirectView("/assurance.htm", true));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,7 +102,7 @@ public class AssuranceController {
 		return null;
 	}
 	
-	@RequestMapping(path="delete", method = RequestMethod.GET)
+	@RequestMapping(path="/assurance/delete.htm", method = RequestMethod.GET)
 	public ModelAndView deleteAssurance(Model model,@RequestParam int id) {
 	    try {
 	    	service.delete(id);
@@ -114,7 +115,7 @@ public class AssuranceController {
 		  }
 		    
 		    model.addAttribute("listeAssurance",listes);
-		    return new ModelAndView("assurance");
+		    return new ModelAndView(new RedirectView("/assurance.htm", true));
 		    
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

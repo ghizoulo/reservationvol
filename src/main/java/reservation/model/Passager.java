@@ -103,7 +103,7 @@ public class Passager {
 		this.prenom = prenom;
 	}
 
-	@Column(name = "NUM_PASSPORT", unique = true, nullable = true, length = 50)
+	@Column(name = "NUM_PASSPORT", nullable = true, length = 50)
 	public String getNum_passport() {
 		return num_passport;
 	}

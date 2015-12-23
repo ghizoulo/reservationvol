@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/welcome.htm")
+@RequestMapping("/dashboard.htm")
 public class WelcomeController {
 
     protected final Log logger = LogFactory.getLog(getClass());
@@ -16,6 +16,6 @@ public class WelcomeController {
     @RequestMapping(method= RequestMethod.GET)
     public ModelAndView showWelcome(){
         logger.info("WelcomeController: returning welcome view");
-        return new ModelAndView("welcome");
+        return new ModelAndView("dashboard");
     }
 }

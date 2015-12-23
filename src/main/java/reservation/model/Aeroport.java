@@ -63,7 +63,7 @@ public class Aeroport {
 		this.id = id;
 	}
 
-	@Column(name = "NOM", unique = true, nullable = false, length = 50)
+	@Column(name = "NOM", nullable = false, length = 50)
 	public String getNom() {
 		return nom;
 	}
@@ -108,7 +108,7 @@ public class Aeroport {
 		this.infoEscales = infoEscales;
 	}
 
-	@Column(name = "VILLE", unique = true, nullable = false, length = 50)
+	@Column(name = "VILLE", nullable = false, length = 50)
 	public String getVille() {
 		return ville;
 	}

@@ -19,13 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import reservation.metier.CompagnieManager;
 import reservation.model.Compagnie;
 
 
 @Controller
-@RequestMapping(value="/compagnie")
+//@RequestMapping(value="/compagnie")
 @MultipartConfig(maxFileSize = 16177215) 
 public class CompagnieController {
 protected final Log logger = LogFactory.getLog(getClass());
@@ -33,7 +34,7 @@ protected final Log logger = LogFactory.getLog(getClass());
 	@Autowired
 	CompagnieManager service;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(path="/compagnie.htm", method = RequestMethod.GET)
 	public ModelAndView listCompagnie(Model model) throws Exception {
 		if(service.list().isEmpty())
 			return new ModelAndView("compagnie");
@@ -56,7 +57,7 @@ protected final Log logger = LogFactory.getLog(getClass());
 		return null; 
 	}
 	
-	@RequestMapping(path="add", method = RequestMethod.POST)
+	@RequestMapping(path="/compagnie/add.htm", method = RequestMethod.POST)
 	public ModelAndView addCompagnie(Model model, HttpServletRequest request) {
 		String UPLOAD_DIRECTORY= "C:/Users/Ghiz LOTFI/Documents/workspaceJEE/Reservation_Vol";
 		String name = null;
@@ -97,7 +98,7 @@ protected final Log logger = LogFactory.getLog(getClass());
 				  }
 			  }
 			  model.addAttribute("listeCompagnie",listes);
-		    return new ModelAndView("compagnie");
+		    return new ModelAndView(new RedirectView("/compagnie.htm", true));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,7 +107,7 @@ protected final Log logger = LogFactory.getLog(getClass());
 		return null;
 	}
 	
-	@RequestMapping(path="delete", method = RequestMethod.GET)
+	@RequestMapping(path="/compagnie/delete.htm", method = RequestMethod.GET)
 	public ModelAndView deleteCompagnie(Model model,@RequestParam int id) {
 	    try {
 	    	service.delete(id);
@@ -117,7 +118,7 @@ protected final Log logger = LogFactory.getLog(getClass());
 				  }
 			  }  
 			  model.addAttribute("listeCompagnie",listes);
-		    return new ModelAndView("compagnie"); 
+		    return new ModelAndView(new RedirectView("/compagnie.htm", true)); 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

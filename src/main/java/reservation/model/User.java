@@ -1,18 +1,18 @@
 package reservation.model;
 
-import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "USERS")
-public class User implements Serializable {
-
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class User{
 	public static final String USER_ROLE_ADMINISTRATOR = "Administrator";
     public static final String USER_ROLE_COMMERCIALAGENT = "Commercialagent";
     public static final Map<String, String> USER_ROLES = new LinkedHashMap<String, String>() {/**

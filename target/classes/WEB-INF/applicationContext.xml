@@ -42,6 +42,7 @@
 		    	<value>reservation.model.Passager</value>
 		    	<value>reservation.model.Reservation</value>
 		    	<value>reservation.model.Siege</value>
+		    	<value>reservation.model.User</value>
 		    	<value>reservation.model.Vol</value>
 			</list>
         </property>
@@ -78,6 +79,11 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/welcome.htm"/>
+            <mvc:mapping path="/aeroport/*"/>
+            <mvc:mapping path="/assurance/*"/>
+            <mvc:mapping path="/compagnie/*"/>
+            <mvc:mapping path="/profile/*"/>
+            <mvc:mapping path="/user/*"/>
             <mvc:mapping path="/vol/*"/>
             <bean class="reservation.security.SessionInterceptor" />
         </mvc:interceptor>

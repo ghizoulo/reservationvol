@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import reservation.metier.AeroportManager;
 import reservation.model.Aeroport;
 
 
 @Controller
-@RequestMapping(value="/aeroport")
+//@RequestMapping(value="/aeroport")
 public class AeroportController {
 	
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -25,7 +26,7 @@ public class AeroportController {
 	@Autowired
 	AeroportManager serviceAeroport;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(path="/aeroport.htm", method = RequestMethod.GET)
 	public ModelAndView listAeroport(Model model) throws Exception {
 		
 		if(serviceAeroport.list().isEmpty())
@@ -50,7 +51,7 @@ public class AeroportController {
 		return null; 
 	}
 	
-	@RequestMapping(path="add", method = RequestMethod.POST)
+	@RequestMapping(path="/aeroport/add.htm", method = RequestMethod.POST)
 	public ModelAndView addAeroport(Model model,@RequestParam String nom,
 									@RequestParam String ville ) {
 	    try {
@@ -64,7 +65,7 @@ public class AeroportController {
 			  }
 			    
 			  model.addAttribute("listeAeroport",listes);
-			  return new ModelAndView("aeroport");
+			  return new ModelAndView(new RedirectView("/aeroport.htm", true));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,7 +74,7 @@ public class AeroportController {
 		return null;
 	}
 	
-	@RequestMapping(path="update", method = RequestMethod.POST)
+	@RequestMapping(path="/aeroport/update.htm", method = RequestMethod.POST)
 	public ModelAndView updateAeroport(Model model,@RequestParam String nom, @RequestParam String ville ) {
 	    try {
 	    	System.out.println("avant modification");
@@ -87,7 +88,7 @@ public class AeroportController {
 				 }
 			  }
 			  model.addAttribute("listeAeroport",listes);
-			  return new ModelAndView("aeroport");
+			  return new ModelAndView(new RedirectView("/aeroport.htm", true));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -96,13 +97,10 @@ public class AeroportController {
 		return null;
 	}
 	
-	@RequestMapping(path="delete", method = RequestMethod.GET)
+	@RequestMapping(path="/aeroport/delete.htm", method = RequestMethod.GET)
 	public ModelAndView deleteAssurance(Model model,@RequestParam int id) {
 	    try {
 	    	serviceAeroport.delete(id);
-		   // Assurance a=service.getAssuranceById(id);
-		    //boolean b =a.isDeleted();
-		  // System.out.println(b);
 	    	ArrayList<Aeroport> listes = new ArrayList<>();
 		  for(Aeroport aeroport:serviceAeroport.list()){
 			  if(!aeroport.isDeleted()){
@@ -110,9 +108,8 @@ public class AeroportController {
 				  System.out.println("Supprimer");
 			  }
 		  }
-		    
 		    model.addAttribute("listeAeroport",listes);
-		    return new ModelAndView("aeroport");
+		    return new ModelAndView(new RedirectView("/aeroport.htm", true));
 		    
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -121,9 +118,5 @@ public class AeroportController {
 		}
 		return null;
 	}
-
-
-	
-	
 }
 

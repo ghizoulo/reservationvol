@@ -43,7 +43,7 @@ public class AuthenticationController {
             user = userManager.authenticate(user);
             session.setAttribute("loggedUser", user);
             logger.info("AuthenticationController: authentication succeeded. Heading to welcome view");
-            return new ModelAndView(new RedirectView("/welcome.htm", true));
+            return new ModelAndView(new RedirectView("/dashboard.htm", true));
 
         } catch (Exception e) {
             result.rejectValue("error", "error.user.authentication");
