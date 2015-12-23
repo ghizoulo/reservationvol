@@ -3,6 +3,8 @@ package reservation.presentation;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import reservation.metier.VolManager;
 import reservation.model.Aeroport;
 import reservation.model.Classe;
 import reservation.model.Compagnie;
+import reservation.model.InfoEscale;
 import reservation.model.Vol;
 
 
@@ -41,6 +44,9 @@ protected final Log logger = LogFactory.getLog(getClass());
 	
 	@Autowired
 	ClasseManager serviceClasse;
+	
+	@Autowired
+	InfoEscaleManager serviceInfoEscale;
 	
 	//pour chercher vol selon critères du formulaire
 	/**
@@ -64,14 +70,17 @@ protected final Log logger = LogFactory.getLog(getClass());
 	 * @return
 	 */
 	@RequestMapping(path = "chercherSimple",method = RequestMethod.POST)
-	public ModelAndView chercherVolAlleeSimple(Model model, @RequestParam int idAeroportDepart, 
+	public ModelAndView chercherVolAlleeSimple(Model model,HttpSession session, 
+													@RequestParam int idAeroportDepart, 
 												 @RequestParam int idAeroportArrivee, 
 												 @RequestParam String escale,
 												 @RequestParam String dateDepart,
 												 @RequestParam String classe,
 												 @RequestParam int compagnie) {
 		try {
-				
+			System.out.println(escale);
+			boolean escaleb=false;
+			if(escale.equals("Oui")) { escaleb=true; session.setAttribute("escale", "oui");}
 				Aeroport AeroportDepart=null;
 				Aeroport AeroportArrivee=null;
 				ArrayList<Vol> listeVolesDepart = new ArrayList<>();
@@ -89,7 +98,7 @@ protected final Log logger = LogFactory.getLog(getClass());
 				}
 				
 				//call of fct local search des voles pour remplir voles depart
-				LocalSearchVol(compagnie,AeroportDepart,AeroportArrivee,listeVolesDepart,listeClassesDepart,classe, dateDepart);
+				LocalSearchVol(compagnie,AeroportDepart,AeroportArrivee,listeVolesDepart,listeClassesDepart,classe, dateDepart, escaleb);
 				
 				//renvoie de elem
 				model.addAttribute("listeVolesDepart", listeVolesDepart);
@@ -115,7 +124,8 @@ protected final Log logger = LogFactory.getLog(getClass());
 	
 	//la recherche associée Allée/retour
 	@RequestMapping(path = "chercherAlleeRetour",method = RequestMethod.POST)
-	public ModelAndView chercherVolAlleeretour(Model model, @RequestParam int idAeroportDepart, 
+	public ModelAndView chercherVolAlleeretour(Model model,HttpSession session, 
+												 @RequestParam int idAeroportDepart, 
 												 @RequestParam int idAeroportArrivee, 
 												 @RequestParam String escale,
 												 @RequestParam String dateDepart,
@@ -123,6 +133,8 @@ protected final Log logger = LogFactory.getLog(getClass());
 												 @RequestParam String classe,
 												 @RequestParam int compagnie) {
 		try {
+			boolean escaleb=false;
+			if(escale.equals("Oui")) { escaleb=true; session.setAttribute("escale", "Oui");}
 				Aeroport AeroportDepart=null;
 				Aeroport AeroportArrivee=null;
 				ArrayList<Vol> listeVolesDepart = new ArrayList<>();
@@ -143,10 +155,10 @@ protected final Log logger = LogFactory.getLog(getClass());
 					}
 				}
 				//call of fct local search des voles pour remplir voles depart
-				LocalSearchVol(compagnie,AeroportDepart,AeroportArrivee,listeVolesDepart,listeClassesDepart,classe,dateDepart);
+				LocalSearchVol(compagnie,AeroportDepart,AeroportArrivee,listeVolesDepart,listeClassesDepart,classe,dateDepart, escaleb);
 				
 				//call of fct local search des voles pour remplir voles Arrivee
-				LocalSearchVol(compagnie,AeroportArrivee,AeroportDepart,listeVolesRetour,listeClassesRetour,classe, dateRetour);
+				LocalSearchVol(compagnie,AeroportArrivee,AeroportDepart,listeVolesRetour,listeClassesRetour,classe, dateRetour, escaleb);
 				
 				model.addAttribute("listeVolesDepart", listeVolesDepart);
 				model.addAttribute("listeVolesRetour", listeVolesRetour);
@@ -172,7 +184,7 @@ protected final Log logger = LogFactory.getLog(getClass());
 	//private void LocalSearchClasses()
 	private void LocalSearchVol(int compagnie,Aeroport Aedepart,
 								Aeroport Aearrivee, ArrayList<Vol> listeVoles,ArrayList<Classe> listeClasses,
-								String classe, String dateDepart)
+								String classe, String dateDepart,boolean escaleb)
 	{
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -185,14 +197,28 @@ protected final Log logger = LogFactory.getLog(getClass());
 						&& formatter.format(vol.getDateDepart().getTime()).equals(dateDepart.toString()))
 					{	
 						//verifier si le vol contient la classe demandée
-						for (Classe clas : serviceClasse.list())
-						{
-							if(clas.getNomClasse().toString().equals(classe) && clas.getVol().getId()==vol.getId() && !clas.isDeleted())
+					for (Classe clas : serviceClasse.list())
+					{
+						if(clas.getNomClasse().toString().equals(classe) && clas.getVol().getId()==vol.getId() && !clas.isDeleted())
+							{
+								if(escaleb==false)
 								{
 									listeVoles.add(vol);
 									listeClasses.add(clas);
 								}
-						}
+								else	
+								{
+									for(InfoEscale infoEscale: serviceInfoEscale.list())
+									{
+										if(infoEscale.getVol().equals(vol))
+										{
+											listeVoles.add(vol);
+											listeClasses.add(clas);
+										}
+									}
+								}
+							}
+					}
 					}
 			}
 		}

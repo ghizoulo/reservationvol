@@ -4,8 +4,6 @@
 
 <%@ page import="java.util.Date" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-
 <layout:extends name="adminBase">
     <layout:put block="contents">
  		<div class="wrapper pad1">

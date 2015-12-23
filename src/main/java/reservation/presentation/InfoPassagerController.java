@@ -42,7 +42,7 @@ public class InfoPassagerController {
 	ReservationManager serviceReservation;
 	@Autowired
 	AssuranceManager serviceAssurance;
-	@RequestMapping(path = "paiement", method = RequestMethod.POST)
+	@RequestMapping(path = "optionsReservation", method = RequestMethod.POST)
 	public ModelAndView creerReservation(@Valid PassagerClientAdd passagerClient, BindingResult result,Model model,HttpSession session) {
 		if (result.hasErrors()) {
 			return new ModelAndView("infoPassager");
@@ -138,6 +138,6 @@ System.out.println(reservationDepart.getId());
 			e.printStackTrace();
 			logger.info("erreeeeu");
 		}
-		return new ModelAndView("paiement");
+		return new ModelAndView("optionsReservation");
 	}
 }

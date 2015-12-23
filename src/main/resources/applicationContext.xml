@@ -43,6 +43,7 @@
 		    	<value>reservation.model.Reservation</value>
 		    	<value>reservation.model.Siege</value>
 		    	<value>reservation.model.Vol</value>
+		    	<value>reservation.model.User</value>
 			</list>
         </property>
         
