@@ -25,7 +25,7 @@
                                             <h2><span class="glyphicon glyphicon-plane"></span>Ajouter un Vol</h2>
                                             <div class="box box-primary">
                                                 </br>
-                                                <form method="POST" action="vol/add.htm">
+                                                <form method="POST" action="add.htm">
                                                     <div class="form-group">
                                                         <label for="dateDepart" class="control-label">Date Départ: </label>
                                                         <input type="date" class="form-control" name="dateDepart">

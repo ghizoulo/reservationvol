@@ -44,128 +44,6 @@ public class VolController {
 	@Autowired
 	ClasseManager serviceClasse;
 
-	@RequestMapping(path = "/vol/add.htm", method = RequestMethod.POST)
-	public ModelAndView addVol(Model model, @RequestParam String dateDepart, @RequestParam String dateArrivee,
-			@RequestParam String heureDepart, @RequestParam String heureArrivee, @RequestParam int aeroportDepartid,
-			@RequestParam int aeroportArriveeid, @RequestParam int compagnieid, @RequestParam boolean open,
-			@RequestParam String heureArriveeEscale, @RequestParam String heureDepartEscale,
-			@RequestParam int aeroportEscale, @RequestParam int prixclasse1,
-			@RequestParam int prixclasse2, @RequestParam int prixclasse3, @RequestParam int prixclasse4)throws Exception {
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date datedepart = formatter.parse(dateDepart);
-		Date datearrivee = formatter.parse(dateArrivee);
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-		System.out.println(heureDepart);
-		System.out.println(sdf.parse(heureDepart));
-		Date hDepart = sdf.parse(heureDepart);
-		Date hArrive = sdf.parse(heureArrivee);
-		try {
-			//instanciation des classes 
-			Compagnie compagnie = new Compagnie();
-			Aeroport aeroportdepart = new Aeroport();
-			Aeroport aeroportarrivee = new Aeroport();
-			Aeroport aeroportescale = new Aeroport();
-			//initialisation des classes
-			compagnie = serviceCompagnie.getCompagnieById(compagnieid);
-			aeroportdepart = serviceAeroport.getAeroportById(aeroportDepartid);
-			aeroportarrivee = serviceAeroport.getAeroportById(aeroportArriveeid);
-			// creer un vol
-			Vol a = new Vol(datedepart, datearrivee, hDepart, hArrive, false, open, aeroportdepart,
-					aeroportarrivee, compagnie);
-			//ajout du vol
-			serviceVol.add(a);
-			//ajout des classes
-			serviceClasse.add(new Classe(TypeClasse.Economique, prixclasse1, false, a));
-			serviceClasse.add(new Classe(TypeClasse.Premium, prixclasse2, false, a));
-			serviceClasse.add(new Classe(TypeClasse.Affaire, prixclasse3, false, a));
-			serviceClasse.add(new Classe(TypeClasse.Premiere, prixclasse4, false, a));
-			//ajout de l'escale
-			//tester si les champs de escale sont empty cad vol sans escale
-
-			if(heureArriveeEscale == "" && heureDepartEscale ==""){
-				System.out.println("khawya");
-				
-				
-			}else{
-			aeroportescale = serviceAeroport.getAeroportById(aeroportEscale);
-			serviceEscale.add(new InfoEscale(heureArriveeEscale, heureDepartEscale, a, aeroportescale));
-			// serviceClasse.add(C);
-			}
-
-			ArrayList<Vol> listes = new ArrayList<>();
-			for (Vol vol : serviceVol.list()) {
-				if (!vol.isDeleted()) {
-					listes.add(vol);
-				}
-			}
-
-			model.addAttribute("listeVol", listes);
-			return new ModelAndView(new RedirectView("/vol.htm", true));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			logger.info("erreeeeu");
-		}
-		// return null;
-		return null;
-	}
-	@RequestMapping(path = "/vol/update", method = RequestMethod.POST)
-	public ModelAndView updateVol(Model model,@RequestParam int id, @RequestParam String dateDepart, @RequestParam String dateArrivee,
-			@RequestParam String heureDepart, @RequestParam String heureArrivee, @RequestParam int aeroportDepartid,
-			@RequestParam int aeroportArriveeid, @RequestParam int compagnieid, @RequestParam boolean open, @RequestParam int prixclasse1,
-			@RequestParam int prixclasse2, @RequestParam int prixclasse3, @RequestParam int prixclasse4,@RequestParam int idClasse1
-			,@RequestParam int idClasse2,@RequestParam int idClasse3,@RequestParam int idClasse4)throws Exception {
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date datedepart = formatter.parse(dateDepart);
-		Date datearrivee = formatter.parse(dateArrivee);
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-		System.out.println(heureDepart);
-		System.out.println(sdf.parse(heureDepart));
-		Date hDepart = sdf.parse(heureDepart);
-		Date hArrive = sdf.parse(heureArrivee);
-		try {
-			//instanciation des classes 
-			Compagnie compagnie = new Compagnie();
-			Aeroport aeroportdepart = new Aeroport();
-			Aeroport aeroportarrivee = new Aeroport();
-			//initialisation des classes
-			compagnie = serviceCompagnie.getCompagnieById(compagnieid);
-			aeroportdepart = serviceAeroport.getAeroportById(aeroportDepartid);
-			aeroportarrivee = serviceAeroport.getAeroportById(aeroportArriveeid);
-			// creer un vol
-			Vol a = new Vol(id,datedepart, datearrivee, hDepart, hArrive, false, open, aeroportdepart,
-					aeroportarrivee, compagnie);
-			//update du vol
-			serviceVol.update(a);
-			//update des classes
-			serviceClasse.update(new Classe(idClasse1,TypeClasse.Economique, prixclasse1, false, a));
-			serviceClasse.update(new Classe(idClasse2,TypeClasse.Premium, prixclasse2, false, a));
-			serviceClasse.update(new Classe(idClasse3,TypeClasse.Affaire, prixclasse3, false, a));
-			serviceClasse.update(new Classe(idClasse4,TypeClasse.Premiere, prixclasse4, false, a));
-			
-
-			ArrayList<Vol> listes = new ArrayList<>();
-			for (Vol vol : serviceVol.list()) {
-				if (!vol.isDeleted()) {
-					listes.add(vol);
-				}
-			}
-
-			model.addAttribute("listeVol", listes);
-			return new ModelAndView(new RedirectView("/vol.htm", true));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			logger.info("erreeeeu");
-		}
-		// return null;
-		return null;
-	}
-
 	@RequestMapping(path = "/vol.htm",method = RequestMethod.GET)
 	public ModelAndView listVol(Model model) throws Exception {
 		
@@ -227,6 +105,7 @@ public class VolController {
 		}
 		return null;
 	}
+	
 	@RequestMapping(path = "/vol/ListForm.htm", method = RequestMethod.POST)
 	public ModelAndView listInForm(Model model) throws Exception {
 		
@@ -376,7 +255,130 @@ public class VolController {
 					logger.info("erreeeeu");
 				}
 				return null;
-			}}
+			}
+	}
+	
+	@RequestMapping(path = "vol/add.htm", method = RequestMethod.POST)
+	public ModelAndView addVol(Model model, @RequestParam String dateDepart, @RequestParam String dateArrivee,
+			@RequestParam String heureDepart, @RequestParam String heureArrivee, @RequestParam int aeroportDepartid,
+			@RequestParam int aeroportArriveeid, @RequestParam int compagnieid, @RequestParam boolean open,
+			@RequestParam String heureArriveeEscale, @RequestParam String heureDepartEscale,
+			@RequestParam int aeroportEscale, @RequestParam int prixclasse1,
+			@RequestParam int prixclasse2, @RequestParam int prixclasse3, @RequestParam int prixclasse4)throws Exception {
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date datedepart = formatter.parse(dateDepart);
+		Date datearrivee = formatter.parse(dateArrivee);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		System.out.println(heureDepart);
+		System.out.println(sdf.parse(heureDepart));
+		Date hDepart = sdf.parse(heureDepart);
+		Date hArrive = sdf.parse(heureArrivee);
+		try {
+			//instanciation des classes 
+			Compagnie compagnie = new Compagnie();
+			Aeroport aeroportdepart = new Aeroport();
+			Aeroport aeroportarrivee = new Aeroport();
+			Aeroport aeroportescale = new Aeroport();
+			//initialisation des classes
+			compagnie = serviceCompagnie.getCompagnieById(compagnieid);
+			aeroportdepart = serviceAeroport.getAeroportById(aeroportDepartid);
+			aeroportarrivee = serviceAeroport.getAeroportById(aeroportArriveeid);
+			// creer un vol
+			Vol a = new Vol(datedepart, datearrivee, hDepart, hArrive, false, open, aeroportdepart,
+					aeroportarrivee, compagnie);
+			//ajout du vol
+			serviceVol.add(a);
+			//ajout des classes
+			serviceClasse.add(new Classe(TypeClasse.Economique, prixclasse1, false, a));
+			serviceClasse.add(new Classe(TypeClasse.Premium, prixclasse2, false, a));
+			serviceClasse.add(new Classe(TypeClasse.Affaire, prixclasse3, false, a));
+			serviceClasse.add(new Classe(TypeClasse.Premiere, prixclasse4, false, a));
+			//ajout de l'escale
+			//tester si les champs de escale sont empty cad vol sans escale
+
+			if(heureArriveeEscale == "" && heureDepartEscale ==""){
+				System.out.println("khawya");
+				
+				
+			}else{
+			aeroportescale = serviceAeroport.getAeroportById(aeroportEscale);
+			serviceEscale.add(new InfoEscale(heureArriveeEscale, heureDepartEscale, a, aeroportescale));
+			// serviceClasse.add(C);
+			}
+
+			ArrayList<Vol> listes = new ArrayList<>();
+			for (Vol vol : serviceVol.list()) {
+				if (!vol.isDeleted()) {
+					listes.add(vol);
+				}
+			}
+
+			model.addAttribute("listeVol", listes);
+			return new ModelAndView(new RedirectView("/vol.htm", true));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			logger.info("erreeeeu");
+		}
+		// return null;
+		return null;
+	}
+	@RequestMapping(path = "/vol/update", method = RequestMethod.POST)
+	public ModelAndView updateVol(Model model,@RequestParam int id, @RequestParam String dateDepart, @RequestParam String dateArrivee,
+			@RequestParam String heureDepart, @RequestParam String heureArrivee, @RequestParam int aeroportDepartid,
+			@RequestParam int aeroportArriveeid, @RequestParam int compagnieid, @RequestParam boolean open, @RequestParam int prixclasse1,
+			@RequestParam int prixclasse2, @RequestParam int prixclasse3, @RequestParam int prixclasse4,@RequestParam int idClasse1
+			,@RequestParam int idClasse2,@RequestParam int idClasse3,@RequestParam int idClasse4)throws Exception {
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date datedepart = formatter.parse(dateDepart);
+		Date datearrivee = formatter.parse(dateArrivee);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		System.out.println(heureDepart);
+		System.out.println(sdf.parse(heureDepart));
+		Date hDepart = sdf.parse(heureDepart);
+		Date hArrive = sdf.parse(heureArrivee);
+		try {
+			//instanciation des classes 
+			Compagnie compagnie = new Compagnie();
+			Aeroport aeroportdepart = new Aeroport();
+			Aeroport aeroportarrivee = new Aeroport();
+			//initialisation des classes
+			compagnie = serviceCompagnie.getCompagnieById(compagnieid);
+			aeroportdepart = serviceAeroport.getAeroportById(aeroportDepartid);
+			aeroportarrivee = serviceAeroport.getAeroportById(aeroportArriveeid);
+			// creer un vol
+			Vol a = new Vol(id,datedepart, datearrivee, hDepart, hArrive, false, open, aeroportdepart,
+					aeroportarrivee, compagnie);
+			//update du vol
+			serviceVol.update(a);
+			//update des classes
+			serviceClasse.update(new Classe(idClasse1,TypeClasse.Economique, prixclasse1, false, a));
+			serviceClasse.update(new Classe(idClasse2,TypeClasse.Premium, prixclasse2, false, a));
+			serviceClasse.update(new Classe(idClasse3,TypeClasse.Affaire, prixclasse3, false, a));
+			serviceClasse.update(new Classe(idClasse4,TypeClasse.Premiere, prixclasse4, false, a));
+			
+
+			ArrayList<Vol> listes = new ArrayList<>();
+			for (Vol vol : serviceVol.list()) {
+				if (!vol.isDeleted()) {
+					listes.add(vol);
+				}
+			}
+
+			model.addAttribute("listeVol", listes);
+			return new ModelAndView(new RedirectView("/vol.htm", true));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			logger.info("erreeeeu");
+		}
+		// return null;
+		return null;
+	}
 
 	@RequestMapping(path = "/vol/delete.htm", method = RequestMethod.GET)
 	public ModelAndView deleteVol(Model model, @RequestParam int id) {
@@ -401,7 +403,7 @@ public class VolController {
 		}
 		return null;
 	}
-	@RequestMapping(path="updatUp", method = RequestMethod.GET)
+	@RequestMapping(path="/vol/updatUp.htm", method = RequestMethod.GET)
 	public ModelAndView updateVolUp(Model model,@RequestParam int id) {
 	    try {
 	    	System.out.println("je suis dans la fonction update");
@@ -417,7 +419,7 @@ public class VolController {
 			}
 
 			model.addAttribute("listeVol", listes);
-			return new ModelAndView("vol");
+			return new ModelAndView(new RedirectView("/vol.htm", true));
 	    } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -425,7 +427,7 @@ public class VolController {
 		}
 		return null;
 	}
-	@RequestMapping(path="updatDown", method = RequestMethod.GET)
+	@RequestMapping(path="/vol/updatDown.htm", method = RequestMethod.GET)
 	public ModelAndView updateVolDown(Model model,@RequestParam int id) {
 	    try {
 	    	System.out.println("je suis dans la fonction update");
@@ -441,7 +443,7 @@ public class VolController {
 			}
 
 			model.addAttribute("listeVol", listes);
-			return new ModelAndView("vol");
+			return new ModelAndView(new RedirectView("/vol.htm", true));
 	    } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

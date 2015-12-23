@@ -25,7 +25,7 @@
                                             <h2><span class="glyphicon glyphicon-plane"></span>Modifier un Vol</h2>
                                             <div class="box box-primary">
                                                 </br>
-                                                <form method="POST" action="vol/update.htm">
+                                                <form method="POST" action="update.htm">
                                                     <div class="form-group">
                                                         <input type="hidden" class="form-control" name="id" value="${idVol}">
                                                         <label for="dateDepart" class="control-label">Date Départ: </label>
