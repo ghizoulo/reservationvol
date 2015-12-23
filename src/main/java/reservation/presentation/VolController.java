@@ -111,6 +111,60 @@ public class VolController {
 		// return null;
 		return null;
 	}
+	@RequestMapping(path = "/vol/update", method = RequestMethod.POST)
+	public ModelAndView updateVol(Model model,@RequestParam int id, @RequestParam String dateDepart, @RequestParam String dateArrivee,
+			@RequestParam String heureDepart, @RequestParam String heureArrivee, @RequestParam int aeroportDepartid,
+			@RequestParam int aeroportArriveeid, @RequestParam int compagnieid, @RequestParam boolean open, @RequestParam int prixclasse1,
+			@RequestParam int prixclasse2, @RequestParam int prixclasse3, @RequestParam int prixclasse4,@RequestParam int idClasse1
+			,@RequestParam int idClasse2,@RequestParam int idClasse3,@RequestParam int idClasse4)throws Exception {
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date datedepart = formatter.parse(dateDepart);
+		Date datearrivee = formatter.parse(dateArrivee);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		System.out.println(heureDepart);
+		System.out.println(sdf.parse(heureDepart));
+		Date hDepart = sdf.parse(heureDepart);
+		Date hArrive = sdf.parse(heureArrivee);
+		try {
+			//instanciation des classes 
+			Compagnie compagnie = new Compagnie();
+			Aeroport aeroportdepart = new Aeroport();
+			Aeroport aeroportarrivee = new Aeroport();
+			//initialisation des classes
+			compagnie = serviceCompagnie.getCompagnieById(compagnieid);
+			aeroportdepart = serviceAeroport.getAeroportById(aeroportDepartid);
+			aeroportarrivee = serviceAeroport.getAeroportById(aeroportArriveeid);
+			// creer un vol
+			Vol a = new Vol(id,datedepart, datearrivee, hDepart, hArrive, false, open, aeroportdepart,
+					aeroportarrivee, compagnie);
+			//update du vol
+			serviceVol.update(a);
+			//update des classes
+			serviceClasse.update(new Classe(idClasse1,TypeClasse.Economique, prixclasse1, false, a));
+			serviceClasse.update(new Classe(idClasse2,TypeClasse.Premium, prixclasse2, false, a));
+			serviceClasse.update(new Classe(idClasse3,TypeClasse.Affaire, prixclasse3, false, a));
+			serviceClasse.update(new Classe(idClasse4,TypeClasse.Premiere, prixclasse4, false, a));
+			
+
+			ArrayList<Vol> listes = new ArrayList<>();
+			for (Vol vol : serviceVol.list()) {
+				if (!vol.isDeleted()) {
+					listes.add(vol);
+				}
+			}
+
+			model.addAttribute("listeVol", listes);
+			return new ModelAndView("vol");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			logger.info("erreeeeu");
+		}
+		// return null;
+		return null;
+	}
 
 	@RequestMapping(path = "/vol.htm",method = RequestMethod.GET)
 	public ModelAndView listVol(Model model) throws Exception {
@@ -237,7 +291,108 @@ public class VolController {
 			}
 		}
 	}
-	
+	@RequestMapping(path = "updateForm", method = RequestMethod.GET)
+	public ModelAndView updateForm(Model model, @RequestParam int id) throws Exception {
+		
+		System.out.println("focntion update form");
+		//on teste si la liste des vols est vide si oui
+		//on charge la liste des aeroports et de compagnie
+		//pour l'utiliser dans l'ajout d'un nouveau vol
+		// et on returne vol.jsp
+		Vol v = new Vol();
+		v = serviceVol.getVolById(id);
+		if(serviceClasse.list().isEmpty()){
+			return new ModelAndView("vol");
+				
+		}
+		else{
+			//sinon la liste des vols, des aeroports et des compagnies
+			// sont chargé pour les afficher
+			// la vue vol.jsp est returné
+			try {
+				ArrayList<Aeroport> listesAeroport = new ArrayList<>();
+				for (Aeroport aeroport : serviceAeroport.list()) {
+		
+					if (!aeroport.isDeleted()) {
+						listesAeroport.add(aeroport);
+					}
+				}
+				ArrayList<Compagnie> listesCompagnie = new ArrayList<>();
+				for (Compagnie compagnie : serviceCompagnie.list()) {
+					if (!compagnie.isDeleted()) {
+						listesCompagnie.add(compagnie);
+					}
+				}
+				ArrayList<Classe> listesClasse = new ArrayList<>();
+				for (Classe classe : serviceClasse.list()) {
+		               if (classe.getVol().getId()==id) {
+		            	   listesClasse.add(classe);
+		            	   }}
+				
+		            	Date depart=v.getDateDepart();
+						System.out.println(depart);
+						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+						SimpleDateFormat formatter1 = new SimpleDateFormat("HH:mm");
+						//Date datedepart = formatter.parse(depart.toString());
+						formatter.format(v.getDateDepart().getTime());
+						formatter.format(v.getDateArrivee().getTime());
+						System.out.println(formatter.format(v.getDateDepart().getTime()));
+						formatter1.format(v.getHeureDepart().getTime());
+						formatter1.format(v.getHeureArrivee().getTime());
+						System.out.println(formatter1.format(v.getHeureDepart().getTime()));
+						model.addAttribute("Vol", v);
+						for(Classe classetest :listesClasse ){
+							if(classetest.getNomClasse().toString()=="Economique"){
+								model.addAttribute("classe1", classetest.getPrix());
+								model.addAttribute("idClasse1", classetest.getId());
+							}
+							if(classetest.getNomClasse().toString()=="Premium"){
+								model.addAttribute("classe2", classetest.getPrix());
+								model.addAttribute("idClasse2", classetest.getId());
+							}
+							if(classetest.getNomClasse().toString()=="Affaire"){
+								model.addAttribute("classe3", classetest.getPrix());
+								model.addAttribute("idClasse3", classetest.getId());
+							}
+							if(classetest.getNomClasse().toString()=="Premiere"){
+								model.addAttribute("classe4", classetest.getPrix());
+								model.addAttribute("idClasse4", classetest.getId());
+							}
+						}
+//						if(classe.getNomClasse().toString()=="Economique"){
+//							model.addAttribute("Classe1", classe.getPrix());
+//							System.out.println(classe.getPrix());
+//						}
+////						if(classe.getNomClasse().toString()=="Premium"){
+////							model.addAttribute("Classe2", classe);
+////							System.out.println(classe.getPrix());
+////						}
+////						if(classe.getNomClasse().toString()=="Affaire"){
+////							model.addAttribute("Classe3", classe);
+////							System.out.println(classe.getPrix());
+////						}
+////						if(classe.getNomClasse().toString()=="Premiere"){
+////							model.addAttribute("Classe4", classe);
+////							System.out.println(classe.getPrix());
+////						}
+						model.addAttribute("dateDepart",formatter.format(v.getDateDepart().getTime()));
+						model.addAttribute("dateArrivee",formatter.format(v.getDateArrivee().getTime()));
+						model.addAttribute("heureDepart",formatter1.format(v.getHeureDepart().getTime()));
+						model.addAttribute("heureArrivee",formatter1.format(v.getHeureArrivee().getTime()));
+						model.addAttribute("listeCompagnie", listesCompagnie);
+						model.addAttribute("listeAeroport", listesAeroport);
+						model.addAttribute("idVol", id);
+						//model.addAttribute("listesClasse", listesClasse);
+						
+						return new ModelAndView("updateVol");
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					logger.info("erreeeeu");
+				}
+				return null;
+			}}
 
 	@RequestMapping(path = "/vol/delete.htm", method = RequestMethod.GET)
 	public ModelAndView deleteVol(Model model, @RequestParam int id) {

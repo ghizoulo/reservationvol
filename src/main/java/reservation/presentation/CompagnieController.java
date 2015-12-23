@@ -106,6 +106,29 @@ protected final Log logger = LogFactory.getLog(getClass());
 		}
 		return null;
 	}
+	@RequestMapping(path="update", method = RequestMethod.POST)
+	public ModelAndView updateCompagnie(Model model,@RequestParam int id,@RequestParam String nom) {
+	    try {
+	    	System.out.println("avant modification");
+		    Compagnie a= new Compagnie(id,nom, false);
+		    service.update(a);
+		    System.out.println("bien modifier");
+		    ArrayList<Compagnie> listes = new ArrayList<>();
+			  for(Compagnie compagnie:service.list()){
+				 if(!compagnie.isDeleted()){
+					  listes.add(compagnie);  
+				 }
+			  }
+			    
+			  model.addAttribute("listeCompagnie",listes);
+			  return new ModelAndView("compagnie");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			logger.info("erreeeeu");
+		}
+		return null;
+	}
 	
 	@RequestMapping(path="/compagnie/delete.htm", method = RequestMethod.GET)
 	public ModelAndView deleteCompagnie(Model model,@RequestParam int id) {

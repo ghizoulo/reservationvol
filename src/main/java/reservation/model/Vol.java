@@ -58,6 +58,20 @@ public class Vol {
 		this.deleted = deleted;
 		this.open = open;
 	}
+	public Vol(int id, Date dateDepart, Date dateArrivee, Date heureDepart, Date heureArrivee, boolean deleted,
+			boolean open, Aeroport aeroportDepart, Aeroport aeroportArrivee, Compagnie compagnie) {
+		super();
+		this.id = id;
+		this.dateDepart = dateDepart;
+		this.dateArrivee = dateArrivee;
+		this.heureDepart = heureDepart;
+		this.heureArrivee = heureArrivee;
+		this.deleted = deleted;
+		this.open = open;
+		this.aeroportDepart = aeroportDepart;
+		this.aeroportArrivee = aeroportArrivee;
+		this.compagnie = compagnie;
+	}
 
 	public Vol(Date dateDepart, Date dateArrivee, Date heureDepart, Date heureArrivee, boolean deleted, boolean open,
 			Aeroport aeroportDepart, Aeroport aeroportArrivee, Compagnie compagnie) {

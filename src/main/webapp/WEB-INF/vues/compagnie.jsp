@@ -5,7 +5,7 @@
 <layout:extends name="base">
 	<layout:put block="contents">
 		<section class="content-header">
-			<h1><b>Liste des Compagnies</b></h1>
+			<h1 class="fa fa-sitemap" style="font-size:48px"><b>Liste des Compagnies</b></h1>
           		<ol class="breadcrumb">
             		<li><a href="login.jsp"><i class="fa fa-dashboard"></i>Admin</a></li>
             		<li class="active">Compagnie</li>

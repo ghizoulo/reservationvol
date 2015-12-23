@@ -2,10 +2,11 @@
 <%@ taglib uri="http://kwonnam.pe.kr/jsp/template-inheritance"
 	prefix="layout"%>
 <%@ taglib prefix="v" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <layout:extends name="base">
 	<layout:put block="contents">
 		<section class="content-header">
-			<h1><b>Liste des assurances</b></h1>
+			<h1 class="fa fa-heartbeat" style="font-size:48px"><b>Liste des assurances</b></h1>
            		<ol class="breadcrumb">
           			<li><a href="login.jsp"><i class="fa fa-dashboard"></i> Admin</a></li>
              		<li class="active"><a href="#">Assurance</a></li>

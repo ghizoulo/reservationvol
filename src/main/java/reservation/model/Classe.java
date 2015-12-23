@@ -45,6 +45,14 @@ public class Classe {
 		this.deleted = deleted;
 		this.vol = vol;
 	}
+	public Classe(int id, TypeClasse nomClasse, int prix, boolean deleted, Vol vol) {
+		super();
+		this.id = id;
+		this.nomClasse = nomClasse;
+		this.prix = prix;
+		this.deleted = deleted;
+		this.vol = vol;
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
