@@ -35,18 +35,16 @@
 					      <span id="slogan">Fast, Frequent &amp; Safe Flights</span>
 					      <nav id="top_nav">
 					        <ul>
-					          <li><a href="index.html" class="nav1">Home</a></li>
-					          <li><a  class="nav2" data-toggle="modal" href="#myModal">Login</a></li>
-					          <li><a href="contacts.html" class="nav3">Contact</a></li>
+					          <li><a href="index.htm" class="nav1">Home</a></li>
+					          <li><a  class="nav2"  href="loginUser.htm">Login</a></li>
 					        </ul>
 					      </nav>
 					    </div>
 					    <nav>
 					      <ul id="menu">
-					        <li id="menu_active"><a href="index.html"><span><span>Recherche</span></span></a></li>
-					        <li ><a href="book.html"><span><span>Meilleurs Prix</span></span></a></li>
-					        <li><a href="safety.html"><span><span>Safety</span></span></a></li>
-					        <li class="end"><a href="contacts.html"><span><span>Contacts</span></span></a></li>
+					        <li id="menu_active"><a href="index.htm"><span><span>Accueil</span></span></a></li>
+					        <li><a href="http://www.meteomaroc.com/"><span><span>Que dit le climat?</span></span></a></li>
+					        <li><a href="loginUser.htm"><span><span>Mon compte</span></span></a></li>
 					      </ul>
 					    </nav>
 					  </header>

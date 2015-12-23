@@ -7,7 +7,8 @@
 		<section class="content-header">
 			<h1 class="fa fa-sitemap" style="font-size:48px"><b>Liste des Compagnies</b></h1>
           		<ol class="breadcrumb">
-            		<li><a href="login.jsp"><i class="fa fa-dashboard"></i>Admin</a></li>
+            		<li><a href="dashboard.jsp"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li><a href="#">Admin</a></li>
             		<li class="active">Compagnie</li>
           		</ol>
 		</section>

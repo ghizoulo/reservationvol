@@ -8,7 +8,8 @@
 		<section class="content-header">
 			<h1 class="fa fa-heartbeat" style="font-size:48px"><b>Liste des assurances</b></h1>
            		<ol class="breadcrumb">
-          			<li><a href="login.jsp"><i class="fa fa-dashboard"></i> Admin</a></li>
+          			<li><a href="dashboard.jsp"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li><a href="#">Admin</a></li>
              		<li class="active"><a href="#">Assurance</a></li>
            		</ol>
 		</section>

@@ -91,7 +91,7 @@ public class PaiementController {
 					PositionSiege posi=PositionSiege.valueOf(position);
 					System.out.println(posi);
 					siege.setPosition(posi);
-					
+					session.setAttribute("mdp", reservationDepart.getNumero());
 					//rang siege
 					RangSiege ran=RangSiege.valueOf(rang);
 					siege.setRang(ran);
@@ -103,8 +103,8 @@ public class PaiementController {
 					//enregistrer le tt 
 					serviceReservation.update(reservationDepart);
 					int prixDepart=(int) session.getAttribute("prixDepart");
-					int prixRetour=(int) session.getAttribute("prixRetour");
-					int prix_total=prixDepart+prixRetour;
+					int prixRetour = 0;
+					int prix_total = prixDepart+prixRetour;
 					System.out.println("prix total avant ajout des frais"+prix_total);
 					
 			//ajouter les info à la reservation du retour
@@ -115,6 +115,7 @@ public class PaiementController {
 						session.setAttribute("prix_total", prix_total);
 					}
 					else {
+						prixRetour=(int) session.getAttribute("prixRetour");
 						idReservationRetour= (int) session.getAttribute("idReservationRetour");
 						Reservation reservationRetour = serviceReservation.getReservationById(idReservationRetour);
 						reservationRetour.setAssurance(assuranceReservation);
@@ -137,12 +138,12 @@ public class PaiementController {
 		System.out.println("fenetre "+fenetre);
 		System.out.println("position "+position);
 		System.out.println("assurance name"+assurance);
-		send_mail((String)session.getAttribute("emailClient"));
+		send_mail((String)session.getAttribute("emailClient"),(int)session.getAttribute("mdp"));
 		return new ModelAndView("validation");
 
 	}
 	
-	public void send_mail(String emailClient){
+	public void send_mail(String emailClient,int id){
 		SendGrid sendgrid = new SendGrid("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");
 		
 		SendGrid.Email email = new SendGrid.Email();
@@ -150,7 +151,8 @@ public class PaiementController {
 	    email.addTo("ghizlanelotfi@gmail.com");
 	    email.setFrom(emailClient);
 	    email.setSubject("Merci pour votre réservation de vol");
-	    email.setHtml("and easy to do anywhere, even with Java");
+	    email.setHtml("Votre réservation a été bien enregistrée,pour vous authentifier, votre username est votre email, et le mot de "
+	    		+ "passe est votre numéro de reservation, gardez le bien:" + id);
 		
 		try {
 			sendgrid.send(email);

@@ -92,7 +92,7 @@ public class InfoPassagerController {
 			reservationDepart.setNumero(numReservR);
 			reservationDepart.setVol(serviceVol.getVolById(idVolDepart));						//vol de l resrevation
 			serviceReservation.add(reservationDepart);
-System.out.println(reservationDepart.getId());
+			System.out.println(reservationDepart.getId());
 			session.setAttribute("idReservationDepart",reservationDepart.getId());
 			
 			//si u vol de reservation est choisi on va remplir une reservation de retour vc les mm num reservation et mm client et passager

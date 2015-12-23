@@ -6,7 +6,7 @@
 	<head>
 		<style type="text/css">
 			body{
-				background-image: url("images/inventory2.jpg");
+				background-image: url("images/background.jpg");
 				 -webkit-background-size: cover;
 				  -moz-background-size: cover;
 				  -o-background-size: cover;

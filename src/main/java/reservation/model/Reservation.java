@@ -22,7 +22,7 @@ public class Reservation {
 	private boolean confirm = false;
 	private int quantite_bagage;
 	private boolean deleted = false;
-	private int prix;
+	private int prix = 0;
 	private Client client;
 	private Passager passager;
 	private Vol vol;

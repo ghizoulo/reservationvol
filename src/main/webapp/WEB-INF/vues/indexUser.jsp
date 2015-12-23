@@ -9,55 +9,9 @@
 <layout:extends name="adminBase">
     <layout:put block="contents">
  		<div class="wrapper pad1">
-	      <article class="col1">
-	        <div class="box1">
-	            <h2 class="top">Hot Offers of the Week</h2>
-	            <div class="pad"> <strong>Birmingham</strong><br>
-	              <ul class="pad_bot1 list1">
-	                <li><span class="right color1">from GBP 143.-</span><a href="book2.html">Zurich</a></li>
-	              </ul>
-	              <strong>London (LCY)</strong><br>
-	              <ul class="pad_bot1 list1">
-	                <li><span class="right color1">from GBP 176.-</span><a href="book2.html">Geneva</a></li>
-	                <li><span class="right color1">from GBP 109.-</span><a href="book2.html">Zurich</a></li>
-	              </ul>
-	              <strong>London (LHR)</strong><br>
-	              <ul class="pad_bot2 list1">
-	                <li><span class="right color1">from GBP 100.-</span><a href="book2.html">Geneva</a></li>
-	                <li><span class="right color1">from GBP 112.-</span><a href="book2.html">Zurich</a></li>
-	                <li><span class="right color1">from GBP 88.-</span><a href="book2.html">Basel</a></li>
-	              </ul>
-	              <strong>Manchester</strong><br>
-	              <ul class="pad_bot2 list1">
-	                <li><span class="right color1">from GBP 97.-</span><a href="book2.html">Basel</a></li>
-	                <li><span class="right color1">from GBP 103.-</span><a href="book2.html">Zurich</a></li>
-	              </ul>
-	              <strong>Edinburgh</strong><br>
-	              <ul class="pad_bot2 list1">
-	                <li><span class="right color1">from GBP 165.-</span><a href="book2.html">Zurich</a></li>
-	              </ul>
-	              <strong>Birmingham</strong><br>
-	              <ul class="pad_bot1 list1">
-	                <li><span class="right color1">from GBP 143.-</span><a href="book2.html">Zurich</a></li>
-	              </ul>
-	              <strong>London (LCY)</strong><br>
-	              <ul class="pad_bot1 list1">
-	                <li><span class="right color1">from GBP 176.-</span><a href="book2.html">Geneva</a></li>
-	                <li><span class="right color1">from GBP 109.-</span><a href="book2.html">Zurich</a></li>
-	              </ul>
-	              <strong>London (LHR)</strong><br>
-	              <ul class="pad_bot2 list1">
-	                <li><span class="right color1">from GBP 100.-</span><a href="book2.html">Geneva</a></li>
-	                <li><span class="right color1">from GBP 112.-</span><a href="book2.html">Zurich</a></li>
-	                <li><span class="right color1">from GBP 88.-</span><a href="book2.html">Basel</a></li>
-	              </ul>
-	            </div>
-	        </div> <!--end of div box1 -->
-	      </article> <!-- end of article -->
-	      <article class="col2">
-	         <div class="bootstrap">
+	         <div class="bootstrap" style="width:50%; margin-left:25%;">
 				<div class="container">
-					  <h2>Dynamic Tabs</h2>
+					  <h2>Lancez votre recherche de vol</h2>
 					  <ul class="nav nav-tabs">
 					    <li class="active"><a data-toggle="tab" href="#home">Allée Simple</a></li>
 					    <li><a data-toggle="tab" href="#menu1">Allée-Retour </a></li>
@@ -193,7 +147,6 @@
 					  </div>
 				</div>
 	         </div>
-	      </article>
 		</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
